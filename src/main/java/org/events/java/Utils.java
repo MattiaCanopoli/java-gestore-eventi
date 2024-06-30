@@ -11,7 +11,7 @@ public class Utils {
 	 * @param min int, lower limit
 	 * @return int, a random int within given limit
 	 */
-	public static int randomCode(int max, int min) {
+	public static int generateRandomInt(int max, int min) {
 
 		Random rnd = new Random();
 		int randomNumber = rnd.nextInt(max - min) + min;
