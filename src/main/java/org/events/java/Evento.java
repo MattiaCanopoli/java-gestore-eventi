@@ -3,6 +3,24 @@ package org.events.java;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Evento class is used to generate general events instances.<br>
+ * <strong>Fields</strong>
+ * <ol>
+ * <li><strong>eventName:</strong> String representing the title of the event.
+ * Can be set with setEventName() or read with getEventName()</li>
+ * <li><strong>totalSeats:</strong> int of the total seats of the venue.
+ * <strong>It must be greater than 0.</strong> Can be set with setTotalSeats()
+ * and read with getTotalSeats()</li>
+ * <li><strong>bookedSeats:</strong> int. When an Evento instance is created,
+ * <strong>it is initialized to 0</strong></li>
+ * <li><strong>eventDate:</strong> LocalDate. date of the event. <strong>Cannot
+ * be set in the past.</strong> Can be set with setEventDate() and read with
+ * getEventDate(). getFormattedDate() returns a String of the date, formatted
+ * with the dateFormat pattern
+ * <li><strong>dateFormat</strong> DateTimeFormatter. deafult pattern to
+ * represent a date
+ */
 public class Evento {
 
 	private String eventName;
@@ -12,78 +30,186 @@ public class Evento {
 	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd MMMM yyyy");
 
 	/**
-	 * Costruttore per classe Evento
+	 * Create a new Evento instance.<br>
+	 * Requiquires three arguments.<br>
+	 * <strong>totalSeats</strong> is checked. if it's 0 or lower it's set to 100. a
+	 * message is shown to inform the user.<br>
+	 * <strong>eventDate</strong> is checked. if it's in the past, will be set to 90
+	 * days from the current day<br>
+	 * <strong>bookedSeats</strong> it's set to 0 on creation.<br>
+	 * <strong>NOTE: dashes beetween date elements, such as year and month, are
+	 * mandatory</strong>
 	 * 
-	 * @param eventName  nome dell'evento
-	 * @param totalSeats numero totale posti
-	 * @param year       anno dell'evento
-	 * @param month      mese dell'evento
-	 * @param day        giorno dell'evento
+	 * @param eventName  String. title of the event
+	 * @param totalSeats int. total seats available at the chosen venue.
+	 *                   <strong>must be greater then 0</strong>
+	 * @param data       String. date of the event. <strong>mandatory format:
+	 *                   "yyyy-mm-dd"</strong>
 	 */
-	public Evento(String eventName, int totalSeats, int year, int month, int day) {
+	public Evento(String eventName, int totalSeats, String eventDate) {
 		this.eventName = eventName;
-		this.totalSeats = totalSeats;
-		this.eventDate = LocalDate.of(year, month, day);
+
+		if (totalSeats > 0) {
+			this.totalSeats = totalSeats;
+		} else {
+			this.totalSeats = 100;
+			System.out.println("Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a "
+					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
+		}
+
+		if (LocalDate.parse(eventDate).isBefore(LocalDate.now())) {
+			LocalDate newDate = LocalDate.now().plusDays(90);
+			this.eventDate = newDate;
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
+					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat));
+		} else {
+			this.eventDate = LocalDate.parse(eventDate);
+		}
+
 		this.bookedSeats = 0;
 
 	}
 
+	/**
+	 * Return a String representing the event name
+	 * 
+	 * @return
+	 */
 	public String getEventName() {
 		return eventName;
 	}
 
-	private void setEventName(String eventName) {
+	/**
+	 * change eventName to a new value. the new value is a String
+	 * 
+	 * @param eventName
+	 */
+	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
 
-	public int getTotalSeats() {
-		return totalSeats;
+	/**
+	 * return eventDate in LocalDate type.
+	 * 
+	 * @return
+	 */
+	public LocalDate getEventDate() {
+		return this.eventDate;
 	}
 
-	private void setTotalSeats(int totalSeats) {
-		this.totalSeats = totalSeats;
-	}
-
-	public int getBookedSeats() {
-		return bookedSeats;
-	}
-
-	private void setBookedSeats(int bookedSeats) {
-		this.bookedSeats = bookedSeats;
-	}
-
-	public String getEventDate() {
+	/**
+	 * return a String with the event date, formatted in it style. <br>
+	 * to get date in LocalDate format use getEventDate instead
+	 * 
+	 * @return
+	 */
+	public String getFormattedEventDate() {
 		return this.eventDate.format(dateFormat);
 	}
 
-	private void setEventDate(LocalDate eventDate) {
-		this.eventDate = eventDate;
-	}
+	/**
+	 * change event date to new one. requires a string as argument
+	 * 
+	 * @param eventDate date of the event. mandatory format: "yyyy-mm-dd"
+	 */
+	public void setEventDate(String eventDate) {
 
-	public void prenota(int numeroPosti) {
-
-		if (LocalDate.now().isAfter(this.eventDate)) {
-
-			System.out.println("Evento passato");
-		} else if (this.bookedSeats + numeroPosti > totalSeats) {
-			System.out.println("Posti non disponibili");
+		if (LocalDate.parse(eventDate).isAfter(LocalDate.now())) {
+			this.eventDate = LocalDate.parse(eventDate);
+			System.out.println(
+					"La data è stata cambiata correttamente.\nLa nuova data è: " + this.eventDate.format(dateFormat));
 		} else {
-			this.bookedSeats += numeroPosti;
-			System.out.println("Prenotato " + numeroPosti + " posti");
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato");
 		}
 
 	}
 
-	public void disdici(int numeroPosti) {
+	/**
+	 * return a int of total seats
+	 * 
+	 * @return int. totalSeats
+	 */
+	public int getTotalSeats() {
+		return this.totalSeats;
+	}
 
-		if (LocalDate.now().isAfter(this.eventDate)) {
-			System.out.println("Evento passato");
-		} else if (this.bookedSeats < numeroPosti) {
-			System.out.println("Impossibile disdire posti non prenotati");
+	public void setTotalSeats(int totalSeats) {
+		if (totalSeats > 0) {
+			this.totalSeats = totalSeats;
+			System.out
+					.println("Il numero di posti è stato modificato.\nIl numero di posti totali è: " + this.totalSeats);
 		} else {
-			this.bookedSeats -= numeroPosti;
-			System.out.println("Disdetto " + numeroPosti + " posti");
+			System.out.println("In numero di posti non può essere 0 o inferiore.\nIl numero di posti totali è: "
+					+ this.totalSeats);
+		}
+	}
+
+	/**
+	 * return int of booked seats
+	 * 
+	 * @return int. bookedSeats
+	 */
+	public int getBookedSeats() {
+		return this.bookedSeats;
+	}
+
+	/**
+	 * Sets a new pattern for date formatting<br>
+	 * the pattern must be composed of "dd" for days; "MM", "MMM" or "MMMM" for
+	 * months and "yy" or "yyyy" for years.<br>
+	 * a separator such as "-" or "\" can be used too.
+	 * 
+	 * @param dateFormat
+	 */
+	public void setDateFormat(String dateFormat) {
+		this.dateFormat = DateTimeFormatter.ofPattern(dateFormat);
+	}
+
+	/**
+	 * checks if there are available seats and if the event isn't concluded yet.<br>
+	 * if eventDate it's in the past or there are no more seats available
+	 * (bookedSeats == totalSeats), prints a message to inform user it's not
+	 * possible to book seats <br>
+	 * if all checks are passed, adds 1 to bookedSeats. prints a confirmation
+	 * message and ticket number of 5 digits generated through generateRandomInt()
+	 * 
+	 */
+	public void prenota() {
+		if (this.bookedSeats + 1 > this.totalSeats) {
+			System.out.println("Siamo spiacenti ma non ci sono più posti disponibili");
+		} else if (LocalDate.now().plusDays(1).isAfter(this.eventDate)) {
+			System.out.println("Siamo spiacenti ma l'evento si è già concluso");
+		} else {
+			this.bookedSeats += 1;
+			int ticketNumber = Utils.generateRandomInt(99999, 11111);
+			System.out.println("Posto prenotato.\nIl suo biglietto è il numero " + ticketNumber);
+		}
+	}
+
+	/**
+	 * checks if there are booked seats and event date is not in the past<br>
+	 * if bookedSeats is 0 or eventDate is in the past, prints messages to inform
+	 * the user it's not possible to cancel the booking<br>
+	 * if all checks are passed, subtract 1 from bookedSeats and prints a
+	 * confirmation message
+	 */
+	public void disdici() {
+		if (this.bookedSeats == 0) {
+			System.out.println("Non ci sono posti da disdire");
+		} else if (LocalDate.now().plusDays(1).isAfter(this.eventDate)) {
+			System.out.println("Siamo spiacenti, ma l'evento è già concluso.\nImpossibile disdire la prenotazione");
+		} else {
+			this.bookedSeats -= 1;
+			System.out.println("Prenotazione annullata");
 		}
 
+	}
+
+	/**
+	 * prints eventDate formatted with dateFormat pattern and eventName
+	 */
+	@Override
+	public String toString() {
+		return this.eventDate.format(dateFormat) + " - " + this.eventName;
 	}
 }
