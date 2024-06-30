@@ -5,25 +5,27 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Evento evento = new Evento("concerto", 10, 2025, 12, 7);
+		Evento event = new Evento("Concerto Grosso N˚3", 1, "2021-12-12");
+		System.out.println(event.getTotalSeats());
 
-		evento.prenota(5);
+		// event.setTotalSeats(1500);
 
-		System.out.println(evento.getBookedSeats());
+		// System.out.println(event.getTotalSeats());
 
-		evento.prenota(5);
+		// System.out.println(event.getBookedSeats());
 
-		System.out.println(evento.getBookedSeats());
+		event.prenota();
+		event.prenota();
 
-		evento.disdici(3);
+		System.out.println(event.getBookedSeats());
 
-		System.out.println(evento.getBookedSeats());
+		event.disdici();
 
-		evento.prenota(2);
+		System.out.println(event.getBookedSeats());
 
-		System.out.println(evento.getBookedSeats());
-
-		evento.prenota(2);
+		event.disdici();
+		event.setDateFormat("yyyyMMdd");
+		System.out.println(event.toString());
 
 	}
 
