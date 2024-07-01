@@ -1,31 +1,53 @@
 package org.events.java;
 
+import java.time.LocalDate;
+import java.util.Scanner;
+
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Evento event = new Evento("Concerto Grosso N˚3", 1, "2021-12-12");
-		System.out.println(event.getTotalSeats());
+		LocalDate eventDate;
 
-		// event.setTotalSeats(1500);
+		Scanner scan = new Scanner(System.in);
 
-		// System.out.println(event.getTotalSeats());
+		System.out.println("Benvenuto nel nostro programma di inserimento di eventi");
+		System.out.println("Insetrire il nome dell'evento");
+		String eventName = scan.nextLine();
 
-		// System.out.println(event.getBookedSeats());
+		boolean dataValidation = false;
+		do {
 
-		event.prenota();
-		event.prenota();
+			String question = "Inserire l'anno dell'evento";
+			String invalidImput = "Il valore inserito non è valido";
+			int year = Utils.checkIntImput(scan, question, invalidImput);
 
-		System.out.println(event.getBookedSeats());
+			question = "Inserire il mese dell'evento";
+			int month = Utils.checkIntImput(scan, question, invalidImput);
 
-		event.disdici();
+			question = "Inserire il giorno dell'evento";
+			int day = Utils.checkIntImput(scan, question, invalidImput);
 
-		System.out.println(event.getBookedSeats());
+			eventDate = LocalDate.of(year, month, day);
 
-		event.disdici();
-		event.setDateFormat("yyyyMMdd");
-		System.out.println(event.toString());
+			dataValidation = Utils.checkDate(eventDate);
+
+			if (!dataValidation) {
+				System.out.println("la data inserita non è valida");
+			}
+
+		} while (!dataValidation);
+
+		System.out.println("Insetrire numero totale di posti disponibili");
+		int totalSeats = scan.nextInt();
+		scan.nextLine();
+
+		Evento event = new Evento(eventName, totalSeats, eventDate);
+
+		System.out.print(event.toString());
+
+		scan.close();
 
 	}
 
