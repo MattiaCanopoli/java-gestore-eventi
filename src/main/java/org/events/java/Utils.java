@@ -19,8 +19,17 @@ public class Utils {
 		return randomNumber;
 	}
 
+	public static boolean checkDate(LocalDate inputDate) {
+		if (inputDate.isBefore(LocalDate.now().plusDays(1))) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public static boolean checkDate(String inputDate) {
 		LocalDate date = LocalDate.parse(inputDate);
+
 		if (date.isBefore(LocalDate.now().plusDays(1))) {
 			return false;
 		} else {

@@ -46,9 +46,9 @@ public class Evento {
 	 * @param data       String. date of the event. <strong>mandatory format:
 	 *                   "yyyy-mm-dd"</strong>
 	 */
-	public Evento(String eventName, int totalSeats, String eventDate) {
+	public Evento(String eventName, int totalSeats, LocalDate eventDate) {
 		this.eventName = eventName;
-
+		// checks if total seats in greater than 0
 		if (totalSeats > 0) {
 			this.totalSeats = totalSeats;
 		} else {
@@ -57,13 +57,13 @@ public class Evento {
 					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
 		}
 
-		if (LocalDate.parse(eventDate).isBefore(LocalDate.now())) {
+		if (eventDate.isBefore(LocalDate.now())) {
 			LocalDate newDate = LocalDate.now().plusDays(90);
 			this.eventDate = newDate;
 			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
 					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat));
 		} else {
-			this.eventDate = LocalDate.parse(eventDate);
+			this.eventDate = eventDate;
 		}
 
 		this.bookedSeats = 0;
