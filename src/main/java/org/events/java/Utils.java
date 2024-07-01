@@ -1,5 +1,6 @@
 package org.events.java;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 public class Utils {
@@ -16,6 +17,15 @@ public class Utils {
 		Random rnd = new Random();
 		int randomNumber = rnd.nextInt(max - min) + min;
 		return randomNumber;
+	}
+
+	public static boolean checkDate(String inputDate) {
+		LocalDate date = LocalDate.parse(inputDate);
+		if (date.isBefore(LocalDate.now().plusDays(1))) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }
