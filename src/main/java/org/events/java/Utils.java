@@ -58,6 +58,26 @@ public class Utils {
 	}
 
 	/**
+	 * Checks if a date is in the future.<br>
+	 * If it's before or equal to current day, return false<br>
+	 * Accepts three int as argument (year, month and day)
+	 * 
+	 * @param year
+	 * @param month
+	 * @param day
+	 * @return boolean. true for future dates, false for past or current date
+	 */
+	public static boolean checkDate(int year, int month, int day) {
+		LocalDate date = LocalDate.of(year, month, day);
+
+		if (date.isBefore(LocalDate.now().plusDays(1))) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
 	 * ask question to user and checks if answer is an integer.<br>
 	 * if user provides an integer, return the integer given.<br>
 	 * else, prints invalidImput message and keeps on asking until a valid input is
