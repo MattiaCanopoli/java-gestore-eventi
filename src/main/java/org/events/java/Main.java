@@ -6,32 +6,33 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		LocalDate eventDate;
-
-		Scanner scan = new Scanner(System.in);
 
 		System.out.println("Benvenuto nel nostro programma di inserimento di eventi");
-		System.out.println("Insetrire il nome dell'evento");
+		System.out.println("Inserire il nome dell'evento");
+		Scanner scan = new Scanner(System.in);
 		String eventName = scan.nextLine();
+
+		String question;
+		String invalidInput = "Il valore inserito non è valido";
+
+		int currentYear = LocalDate.now().getYear();
+		int year;
+		int month;
+		int day;
 
 		boolean dataValidation = false;
 		do {
 
-			String question = "Inserire l'anno dell'evento";
-			String invalidImput = "Il valore inserito non è valido";
-			int year = Utils.checkIntImput(scan, question, invalidImput);
+			question = "Inserire l'anno dell'evento";
+			year = Utils.checkIntInputGreater(scan, currentYear, question, invalidInput);
 
 			question = "Inserire il mese dell'evento";
-			int month = Utils.checkIntImput(scan, question, invalidImput);
+			month = Utils.checkIntInput(scan, 1, 12, question, invalidInput);
 
 			question = "Inserire il giorno dell'evento";
-			int day = Utils.checkIntImput(scan, question, invalidImput);
+			day = Utils.checkIntInput(scan, 1, 31, question, invalidInput);
 
-			eventDate = LocalDate.of(year, month, day);
-
-			dataValidation = Utils.checkDate(eventDate);
+			dataValidation = Utils.checkDate(year, month, day);
 
 			if (!dataValidation) {
 				System.out.println("la data inserita non è valida");
@@ -39,13 +40,13 @@ public class Main {
 
 		} while (!dataValidation);
 
-		System.out.println("Insetrire numero totale di posti disponibili");
-		int totalSeats = scan.nextInt();
-		scan.nextLine();
+		question = "Inserire numero totale di posti disponibili";
 
-		Evento event = new Evento(eventName, totalSeats, eventDate);
+		int totalSeats = Utils.checkIntInputGreater(scan, 0, question, invalidInput);
 
-		System.out.print(event.toString());
+		Evento event = new Evento(eventName, totalSeats, year, month, day);
+
+		event.prenota(100);
 
 		scan.close();
 
