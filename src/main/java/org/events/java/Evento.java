@@ -259,7 +259,7 @@ public class Evento {
 	 * 
 	 * @param totalSeats
 	 */
-	public void setTotalSeats(int totalSeats) {
+	private void setTotalSeats(int totalSeats) {
 		if (totalSeats > 0) {
 			this.totalSeats = totalSeats;
 			System.out
@@ -283,7 +283,7 @@ public class Evento {
 	 * Sets a new pattern for date formatting<br>
 	 * the pattern must be composed of "dd" for days; "MM", "MMM" or "MMMM" for
 	 * months and "yy" or "yyyy" for years.<br>
-	 * a separator such as "-" or "\" can be used too.
+	 * a separator such as "-" or "/" can be used too.
 	 * 
 	 * @param dateFormat
 	 */
