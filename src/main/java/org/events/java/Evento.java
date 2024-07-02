@@ -32,8 +32,8 @@ public class Evento {
 	/**
 	 * Create a new Evento instance.<br>
 	 * Requires three arguments.<br>
-	 * <strong>totalSeats</strong> is checked. if it's 0 or lower it's set to 100. a
-	 * message is shown to inform the user.<br>
+	 * <strong>totalSeats</strong> is checked. if it's 0 or lower it's set to 100.
+	 * an error message is printed.<br>
 	 * <strong>eventDate</strong> is checked. if it's in the past, will be set to 90
 	 * days from the current day<br>
 	 * <strong>bookedSeats</strong> it's set to 0 on creation.<br>
@@ -45,7 +45,7 @@ public class Evento {
 	 */
 	public Evento(String eventName, int totalSeats, LocalDate eventDate) {
 		this.eventName = eventName;
-		// checks if total seats in greater than 0. if il 0 or lesser, sets totalSeats
+		// checks if total seats in greater than 0. if is 0 or less, sets totalSeats
 		// to 100 and print a message
 		if (totalSeats > 0) {
 			this.totalSeats = totalSeats;
@@ -70,11 +70,10 @@ public class Evento {
 	}
 
 	/**
-	 * overload of Evento constructor<br>
 	 * Create a new Evento instance.<br>
 	 * Requires five arguments.<br>
-	 * <strong>totalSeats</strong> is checked. if it's 0 or lower it's set to 100. a
-	 * message is shown to inform the user.<br>
+	 * <strong>totalSeats</strong> is checked. if it's 0 or lower it's set to 100.
+	 * an error message is printed.<br>
 	 * <strong>year, month, day</strong>are used to create a LocalDate instance that
 	 * will be checked. if it's in the past, will be set to 90 days from the current
 	 * day<br>
@@ -89,7 +88,7 @@ public class Evento {
 	 */
 	public Evento(String eventName, int totalSeats, int year, int month, int day) {
 		this.eventName = eventName;
-		// checks if total seats in greater than 0. if il 0 or lesser, sets totalSeats
+		// checks if total seats in greater than 0. if is 0 or less, sets totalSeats
 		// to 100 and print a message
 		if (totalSeats > 0) {
 			this.totalSeats = totalSeats;
@@ -98,12 +97,55 @@ public class Evento {
 			System.out.println("Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a "
 					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
 		}
-		// Declaration of a new LocalDate variable
-		LocalDate eventDate = LocalDate.of(year, month, day);
+		// checks if eventDate is in the future. if it is equal to current date or in
+		// the past, sets eventDate 90 days from current date and prints a message
+		if (Utils.checkDate(year, month, day)) {
+			this.eventDate = LocalDate.of(year, month, day);
+		} else {
+			this.eventDate = LocalDate.now().plusDays(90);
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
+					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat));
+
+		}
+
+		this.bookedSeats = 0;
+
+	}
+
+	/**
+	 * Create a new Evento instance.<br>
+	 * Requires three arguments.<br>
+	 * <strong>totalSeats</strong> is checked. if it's 0 or lower it's set to 100.
+	 * an error message is printed.<br>
+	 * <strong>eventDate</strong> is checked. if it's in the past, will be set to 90
+	 * days from the current day<br>
+	 * The provided String for eventDate must follow the pattern
+	 * <strong>"yyyy-MM-dd"</strong><br>
+	 * <strong>bookedSeats</strong> it's set to 0 on creation.<br>
+	 * 
+	 * @param eventName  String. title of the event
+	 * @param totalSeats int. total seats available at the chosen venue.
+	 *                   <strong>must be greater then 0</strong>
+	 * @param eventDate  String. date of the event. <strong>must follow the pattern
+	 *                   "yyyy-MM-dd"</strong>
+	 */
+	public Evento(String eventName, int totalSeats, String eventDate) {
+		this.eventName = eventName;
+
+		// checks if total seats in greater than 0. if is 0 or less, sets totalSeats
+		// to 100 and print a message
+		if (totalSeats > 0) {
+			this.totalSeats = totalSeats;
+		} else {
+			this.totalSeats = 100;
+			System.out.println("Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a "
+					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
+		}
+
 		// checks if eventDate is in the future. if it is equal to current date or in
 		// the past, sets eventDate 90 days from current date and prints a message
 		if (Utils.checkDate(eventDate)) {
-			this.eventDate = eventDate;
+			this.eventDate = LocalDate.parse(eventDate);
 		} else {
 			this.eventDate = LocalDate.now().plusDays(90);
 			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
@@ -125,7 +167,7 @@ public class Evento {
 	}
 
 	/**
-	 * change eventName to a new value. the new value is a String
+	 * change eventName to a new value.
 	 * 
 	 * @param eventName
 	 */
