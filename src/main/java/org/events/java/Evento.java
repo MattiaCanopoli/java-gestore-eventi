@@ -313,6 +313,37 @@ public class Evento {
 	}
 
 	/**
+	 * checks if there are enough available seats and if the event isn't concluded
+	 * yet.<br>
+	 * if eventDate it's in the past or there are not enough seats available
+	 * (bookedSeats+requestedSeats > totalSeats), prints a message to inform user
+	 * it's not possible to book and shows remaining seats <br>
+	 * if all checks are passed, adds requestedSeats to bookedSeats. prints a
+	 * confirmation message and ticket number of 5 digits generated through
+	 * generateRandomInt()
+	 * 
+	 */
+	public void prenota(int requestedSeats) {
+
+		// TODO valutare loop
+		if (this.bookedSeats + requestedSeats > this.totalSeats) {
+			System.out.println("Siamo spiacenti ma sono rimasti solamente " + (this.totalSeats - this.bookedSeats)
+					+ " posti disponibili");
+		} else if (LocalDate.now().plusDays(1).isAfter(this.eventDate)) {
+			System.out.println("Siamo spiacenti ma l'evento si è già concluso");
+		} else {
+			this.bookedSeats += requestedSeats;
+			int ticketNumber;
+			System.out.println("Ecco i suoi biglietti:");
+			for (int i = 0; i < requestedSeats; i++) {
+				ticketNumber = Utils.generateRandomInt(99999, 11111);
+				System.out.println("#" + ticketNumber);
+			}
+
+		}
+	}
+
+	/**
 	 * checks if there are booked seats and event date is not in the past<br>
 	 * if bookedSeats is 0 or eventDate is in the past, prints messages to inform
 	 * the user it's not possible to cancel the booking<br>
