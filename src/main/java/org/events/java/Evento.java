@@ -143,8 +143,9 @@ public class Evento {
 	}
 
 	/**
-	 * return a String with the event date, formatted in it style. <br>
-	 * to get date in LocalDate format use getEventDate instead
+	 * return a String with the event date, formatted in it style (dd MMMM yyyy).
+	 * <br>
+	 * to get date in LocalDate format (yyyy-MM-dd) use getEventDate instead
 	 * 
 	 * @return
 	 */
@@ -153,14 +154,43 @@ public class Evento {
 	}
 
 	/**
-	 * change event date to new one. requires a string as argument
+	 * change event date to new one. requires three arguments for year, month and
+	 * day.<br>
+	 * checks if the new date it's in the future. prints a confirmation message with
+	 * the new date. if the date provided it's the current day or it's in the past,
+	 * prints an error message. the event date won't be changed.
+	 * 
+	 * @param year  int. year of the event.
+	 * @param month int. month of the event.
+	 * @param day   int.day of the event.
+	 */
+	public void setEventDate(int year, int month, int day) {
+
+		LocalDate newDate = LocalDate.of(year, month, day);
+		if (Utils.checkDate(newDate)) {
+			this.eventDate = newDate;
+			System.out.println(
+					"La data è stata cambiata correttamente.\nLa nuova data è: " + this.eventDate.format(dateFormat));
+		} else {
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato");
+		}
+
+	}
+
+	/**
+	 * overload of setEventDate() change event date to new one. requires a string as
+	 * argument.<br>
+	 * checks if the new date it's in the future. prints a confirmation message with
+	 * the new date. if the date provided it's the current day or it's in the past,
+	 * prints an error message. the event date won't be changed.
 	 * 
 	 * @param eventDate date of the event. mandatory format: "yyyy-mm-dd"
 	 */
 	public void setEventDate(String eventDate) {
 
-		if (LocalDate.parse(eventDate).isAfter(LocalDate.now())) {
-			this.eventDate = LocalDate.parse(eventDate);
+		LocalDate newDate = LocalDate.parse(eventDate);
+		if (Utils.checkDate(newDate)) {
+			this.eventDate = newDate;
 			System.out.println(
 					"La data è stata cambiata correttamente.\nLa nuova data è: " + this.eventDate.format(dateFormat));
 		} else {
