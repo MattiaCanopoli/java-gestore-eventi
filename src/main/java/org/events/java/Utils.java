@@ -89,7 +89,7 @@ public class Utils {
 	 *                            of invalid input
 	 * @return integer asked
 	 */
-	public static int checkIntImput(Scanner scanner, String question, String invalidImputMessage) {
+	public static int checkIntInput(Scanner scanner, String question, String invalidImputMessage) {
 		boolean check = false;
 		int number = 0;
 
