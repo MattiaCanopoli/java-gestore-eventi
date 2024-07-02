@@ -7,11 +7,11 @@ import java.util.Scanner;
 public class Utils {
 
 	/**
-	 * Generate a random int within limits
+	 * Generate a random int within given limits
 	 * 
 	 * @param max int, upper limit
 	 * @param min int, lower limit
-	 * @return int, a random int within given limit
+	 * @return int a random int within given limit
 	 */
 	public static int generateRandomInt(int max, int min) {
 
@@ -25,7 +25,7 @@ public class Utils {
 	 * if the input date is the current day or before, return false
 	 * 
 	 * @param inputDate
-	 * @return boolean
+	 * @return boolean true for future dates, false for past or current date
 	 */
 	public static boolean checkDate(LocalDate inputDate) {
 		if (inputDate.isBefore(LocalDate.now().plusDays(1))) {
@@ -45,7 +45,7 @@ public class Utils {
 	 * 
 	 * @param inputDate String with date to check. must follow the pattern
 	 *                  "yyyy-MM-dd"
-	 * @return boolean
+	 * @return boolean true for future dates, false for past or current date
 	 */
 	public static boolean checkDate(String inputDate) {
 		LocalDate date = LocalDate.parse(inputDate);
