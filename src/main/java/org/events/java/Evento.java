@@ -208,6 +208,15 @@ public class Evento {
 		return this.totalSeats;
 	}
 
+	/**
+	 * change totalSeats value to new one.<br>
+	 * accepts one int as argument<br>
+	 * check if the argument provided is greater than 0. prints a confirmation
+	 * message with the updated value. if the provided argument is 0 or less, prints
+	 * an error message. totalSeats value won't be changed.
+	 * 
+	 * @param totalSeats
+	 */
 	public void setTotalSeats(int totalSeats) {
 		if (totalSeats > 0) {
 			this.totalSeats = totalSeats;
