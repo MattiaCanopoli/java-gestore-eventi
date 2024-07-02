@@ -31,24 +31,22 @@ public class Evento {
 
 	/**
 	 * Create a new Evento instance.<br>
-	 * Requiquires three arguments.<br>
+	 * Requires three arguments.<br>
 	 * <strong>totalSeats</strong> is checked. if it's 0 or lower it's set to 100. a
 	 * message is shown to inform the user.<br>
 	 * <strong>eventDate</strong> is checked. if it's in the past, will be set to 90
 	 * days from the current day<br>
 	 * <strong>bookedSeats</strong> it's set to 0 on creation.<br>
-	 * <strong>NOTE: dashes beetween date elements, such as year and month, are
-	 * mandatory</strong>
 	 * 
 	 * @param eventName  String. title of the event
 	 * @param totalSeats int. total seats available at the chosen venue.
 	 *                   <strong>must be greater then 0</strong>
-	 * @param data       String. date of the event. <strong>mandatory format:
-	 *                   "yyyy-mm-dd"</strong>
+	 * @param eventDate  LocalDate. date of the event.
 	 */
 	public Evento(String eventName, int totalSeats, LocalDate eventDate) {
 		this.eventName = eventName;
-		// checks if total seats in greater than 0
+		// checks if total seats in greater than 0. if il 0 or lesser, sets totalSeats
+		// to 100 and print a message
 		if (totalSeats > 0) {
 			this.totalSeats = totalSeats;
 		} else {
@@ -56,14 +54,61 @@ public class Evento {
 			System.out.println("Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a "
 					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
 		}
-
-		if (eventDate.isBefore(LocalDate.now())) {
-			LocalDate newDate = LocalDate.now().plusDays(90);
-			this.eventDate = newDate;
+		// checks if eventDate is in the future. if it is equal to current date or in
+		// the past, sets eventDate 90 days from current date and prints a message
+		if (Utils.checkDate(eventDate)) {
+			this.eventDate = eventDate;
+		} else {
+			this.eventDate = LocalDate.now().plusDays(90);
 			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
 					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat));
+
+		}
+
+		this.bookedSeats = 0;
+
+	}
+
+	/**
+	 * overload of Evento constructor<br>
+	 * Create a new Evento instance.<br>
+	 * Requires five arguments.<br>
+	 * <strong>totalSeats</strong> is checked. if it's 0 or lower it's set to 100. a
+	 * message is shown to inform the user.<br>
+	 * <strong>year, month, day</strong>are used to create a LocalDate instance that
+	 * will be checked. if it's in the past, will be set to 90 days from the current
+	 * day<br>
+	 * <strong>bookedSeats</strong> it's set to 0 on creation.<br>
+	 * 
+	 * @param eventName  String. title of the event
+	 * @param totalSeats int. total seats available at the chosen venue.
+	 *                   <strong>must be greater then 0</strong>
+	 * @param year       int. year of the event.
+	 * @param month      int. month of the event.
+	 * @param day        int.day of the event.
+	 */
+	public Evento(String eventName, int totalSeats, int year, int month, int day) {
+		this.eventName = eventName;
+		// checks if total seats in greater than 0. if il 0 or lesser, sets totalSeats
+		// to 100 and print a message
+		if (totalSeats > 0) {
+			this.totalSeats = totalSeats;
 		} else {
+			this.totalSeats = 100;
+			System.out.println("Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a "
+					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
+		}
+		// Declaration of a new LocalDate variable
+		LocalDate eventDate = LocalDate.of(year, month, day);
+		// checks if eventDate is in the future. if it is equal to current date or in
+		// the past, sets eventDate 90 days from current date and prints a message
+		if (Utils.checkDate(eventDate)) {
 			this.eventDate = eventDate;
+		} else {
+			this.eventDate = LocalDate.now().plusDays(90);
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
+					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat));
+
 		}
 
 		this.bookedSeats = 0;
