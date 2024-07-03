@@ -27,10 +27,10 @@ public class Main {
 			year = Utils.checkIntInputGreater(scan, currentYear, question, invalidInput);
 
 			question = "Inserire il mese dell'evento";
-			month = Utils.checkIntInput(scan, 1, 12, question, invalidInput);
+			month = Utils.checkIntInput(scan, 1, 12, question, invalidInput, invalidInput);
 
 			question = "Inserire il giorno dell'evento";
-			day = Utils.checkIntInput(scan, 1, 31, question, invalidInput);
+			day = Utils.checkIntInput(scan, 1, 31, question, invalidInput, invalidInput);
 
 			dataValidation = Utils.checkDate(year, month, day);
 
@@ -45,11 +45,17 @@ public class Main {
 		int totalSeats = Utils.checkIntInputGreater(scan, 0, question, invalidInput);
 
 		Evento event = new Evento(eventName, totalSeats, year, month, day);
+//TODO inserire domanda Y/N con validazione per prenotazione
+		event.prenota(scan);
+		// TODO inserire domanda Y/N con validazione per disdetta
+		event.disdici(scan);
 
-		event.prenota(100);
+		int availableSeats = event.getTotalSeats() - event.getBookedSeats();
+
+		System.out
+				.println("Posti prenotati: " + event.getBookedSeats() + "\n" + "Posti disponibili: " + availableSeats);
 
 		scan.close();
 
 	}
-
 }
