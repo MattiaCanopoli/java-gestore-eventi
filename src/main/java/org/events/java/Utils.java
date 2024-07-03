@@ -122,11 +122,12 @@ public class Utils {
 	 * @param min                 lower limit
 	 * @param max                 upper limit
 	 * @param question            a string representing the question to ask
-	 * @param invalidImputMessage a string representing the message to print in case
-	 *                            of invalid input
-	 * @return requested integer
+	 * @param invalidImputMessage error message for not int input
+	 * @param outOfRangeInput     error message for out of range input
+	 * @return int the requested integer
 	 */
-	public static int checkIntInput(Scanner scanner, int min, int max, String question, String invalidImputMessage) {
+	public static int checkIntInput(Scanner scanner, int min, int max, String question, String invalidImputMessage,
+			String outOfRangeInput) {
 		boolean check = false;
 		int number = 0;
 
@@ -145,7 +146,7 @@ public class Utils {
 			if (number <= max && number >= min) {
 				check = true;
 			} else {
-				System.out.println(invalidImputMessage);
+				System.out.println(outOfRangeInput);
 			}
 
 		} while (!check);
