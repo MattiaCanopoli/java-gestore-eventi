@@ -2,6 +2,7 @@ package org.events.java;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 /**
  * Evento class is used to generate general events instances.<br>
@@ -51,8 +52,8 @@ public class Evento {
 			this.totalSeats = totalSeats;
 		} else {
 			this.totalSeats = 100;
-			System.out.println("Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a "
-					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
+			System.out.println(
+					"Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a " + this.totalSeats);
 		}
 		// checks if eventDate is in the future. if it is equal to current date or in
 		// the past, sets eventDate 90 days from current date and prints a message
@@ -94,8 +95,8 @@ public class Evento {
 			this.totalSeats = totalSeats;
 		} else {
 			this.totalSeats = 100;
-			System.out.println("Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a "
-					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
+			System.out.println(
+					"Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a " + this.totalSeats);
 		}
 		// checks if eventDate is in the future. if it is equal to current date or in
 		// the past, sets eventDate 90 days from current date and prints a message
@@ -138,8 +139,8 @@ public class Evento {
 			this.totalSeats = totalSeats;
 		} else {
 			this.totalSeats = 100;
-			System.out.println("Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a "
-					+ this.totalSeats + "\nSi prega di modificarlo manualmente");
+			System.out.println(
+					"Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a " + this.totalSeats);
 		}
 
 		// checks if eventDate is in the future. if it is equal to current date or in
@@ -163,7 +164,7 @@ public class Evento {
 	 * @return
 	 */
 	public String getEventName() {
-		return eventName;
+		return this.eventName;
 	}
 
 	/**
@@ -259,6 +260,7 @@ public class Evento {
 	 * 
 	 * @param totalSeats
 	 */
+	@SuppressWarnings("unused")
 	private void setTotalSeats(int totalSeats) {
 		if (totalSeats > 0) {
 			this.totalSeats = totalSeats;
@@ -292,12 +294,15 @@ public class Evento {
 	}
 
 	/**
+	 * adds 1 to bookedSeats<br>
+	 * <br>
 	 * checks if there are available seats and if the event isn't concluded yet.<br>
 	 * if eventDate it's in the past or there are no more seats available
 	 * (bookedSeats == totalSeats), prints a message to inform user it's not
 	 * possible to book seats <br>
-	 * if all checks are passed, adds 1 to bookedSeats. prints a confirmation
-	 * message and ticket number of 5 digits generated through generateRandomInt()
+	 * if all checks are passed, adds 1 to bookedSeats.<br>
+	 * prints a confirmation message and ticket number of 5 digits generated through
+	 * generateRandomInt()
 	 * 
 	 */
 	public void prenota() {
@@ -308,38 +313,45 @@ public class Evento {
 		} else {
 			this.bookedSeats += 1;
 			int ticketNumber = Utils.generateRandomInt(99999, 11111);
-			System.out.println("Posto prenotato.\nIl suo biglietto è il numero " + ticketNumber);
+			System.out.println("Posto prenotato.\nIl suo biglietto è il numero #" + ticketNumber);
 		}
 	}
 
 	/**
-	 * checks if there are enough available seats and if the event isn't concluded
-	 * yet.<br>
-	 * if eventDate it's in the past or there are not enough seats available
-	 * (bookedSeats+requestedSeats > totalSeats), prints a message to inform user
-	 * it's not possible to book and shows remaining seats <br>
-	 * if all checks are passed, adds requestedSeats to bookedSeats. prints a
-	 * confirmation message and ticket number of 5 digits generated through
-	 * generateRandomInt()
+	 * Adds an int provided by the user to bookedSeats.<br>
+	 * <br>
+	 * Compares eventDate with current date. if eventDate is in the past, prints
+	 * error message<br>
+	 * Get user input and verify that is an integer within range 0 to availableSeats
+	 * (totalSeats-bookedSeats). if not, prints an error message, also displaying
+	 * availableSeats.<br>
+	 * Else, adds users input to bookedSeats. prints a confirmation message and
+	 * consecutive ticket numbers<br>
+	 * The first ticket number is a random int of 5 digits, the subsequent ones are
+	 * the ticket number + 1.
 	 * 
+	 * @param scanner a scanner instance to get user input.
 	 */
-	public void prenota(int requestedSeats) {
+	public void prenota(Scanner scanner) {
 
-		// TODO valutare loop
-		if (this.bookedSeats + requestedSeats > this.totalSeats) {
-			System.out.println("Siamo spiacenti ma sono rimasti solamente " + (this.totalSeats - this.bookedSeats)
-					+ " posti disponibili");
-		} else if (LocalDate.now().plusDays(1).isAfter(this.eventDate)) {
-			System.out.println("Siamo spiacenti ma l'evento si è già concluso");
-		} else {
+		if (Utils.checkDate(eventDate)) {
+			int availableSeats = this.totalSeats - this.bookedSeats;
+			String question = "Quanti posti desidera prenotare?";
+			String invalidInput = "il valore inserito non è valido. É possibile inserire solamente numeri interi";
+			String outOfRangeMessage = "Siamo spiacenti ma non ci sono abbastanza posti disponibili.\nAl momento ci sono ancora "
+					+ availableSeats + " posti";
+			int requestedSeats = Utils.checkIntInput(scanner, 1, availableSeats, question, invalidInput,
+					outOfRangeMessage);
 			this.bookedSeats += requestedSeats;
-			int ticketNumber;
-			System.out.println("Ecco i suoi biglietti:");
+			System.out.println("Vi abbiamo riservato " + requestedSeats + " posti\nEcco i vostri biglietti");
+			int ticket = Utils.generateRandomInt(99999, 11111);
 			for (int i = 0; i < requestedSeats; i++) {
-				ticketNumber = Utils.generateRandomInt(99999, 11111);
-				System.out.println("#" + ticketNumber);
+				ticket += 1;
+				System.out.println("#" + ticket);
 			}
 
+		} else {
+			System.out.println("Siamo spiacenti ma l'evento si è già concluso");
 		}
 	}
 
@@ -361,6 +373,25 @@ public class Evento {
 		}
 
 	}
+
+	public void disdici(Scanner scanner) {
+
+		if (Utils.checkDate(eventDate)) {
+			String question = "Quanti posti desidera disdire?";
+			String invalidInput = "il valore inserito non è valido. É possibile inserire solamente numeri interi";
+			String outOfRangeMessage = "Siamo spiacenti ma ci sono solamente " + this.bookedSeats
+					+ " posti prenotati\nImpossibile disdire";
+			int canceledSeats = Utils.checkIntInput(scanner, 1, this.bookedSeats, question, invalidInput,
+					outOfRangeMessage);
+			this.bookedSeats -= canceledSeats;
+			System.out.println(canceledSeats + " posti disdetti");
+
+		} else {
+			System.out.println("Siamo spiacenti ma l'evento si è già concluso");
+		}
+	}
+
+	// TODO scrivere metodo disdici con input utente
 
 	/**
 	 * prints eventDate formatted with dateFormat pattern and eventName
