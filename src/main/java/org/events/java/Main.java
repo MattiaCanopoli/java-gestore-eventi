@@ -24,7 +24,7 @@ public class Main {
 		int month;
 		int day;
 
-		// Initialization of a boolead variable to be used in the following do/while
+		// Initialization of a boolean variable to be used in the following do/while
 		// loop.
 		// Loop will ends if dataValidation is true
 		boolean dataValidation = false;
