@@ -52,8 +52,8 @@ public class Evento {
 			this.totalSeats = totalSeats;
 		} else {
 			this.totalSeats = 100;
-			System.out.println(
-					"Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a " + this.totalSeats);
+			System.out.println("Il numero di posti deve essere maggiore di 0" + "\n" + "É stato quindi impostato a "
+					+ this.totalSeats + "\n");
 		}
 		// checks if eventDate is in the future. if it is equal to current date or in
 		// the past, sets eventDate 90 days from current date and prints a message
@@ -61,8 +61,9 @@ public class Evento {
 			this.eventDate = eventDate;
 		} else {
 			this.eventDate = LocalDate.now().plusDays(90);
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
-					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat));
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato." + "\n"
+					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat)
+					+ "\n");
 
 		}
 
@@ -95,8 +96,8 @@ public class Evento {
 			this.totalSeats = totalSeats;
 		} else {
 			this.totalSeats = 100;
-			System.out.println(
-					"Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a " + this.totalSeats);
+			System.out.println("Il numero di posti deve essere maggiore di 0" + "\n" + "É stato quindi impostato a "
+					+ this.totalSeats + "\n");
 		}
 		// checks if eventDate is in the future. if it is equal to current date or in
 		// the past, sets eventDate 90 days from current date and prints a message
@@ -104,8 +105,9 @@ public class Evento {
 			this.eventDate = LocalDate.of(year, month, day);
 		} else {
 			this.eventDate = LocalDate.now().plusDays(90);
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
-					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat));
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato." + "\n"
+					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat)
+					+ "\n");
 
 		}
 
@@ -139,8 +141,8 @@ public class Evento {
 			this.totalSeats = totalSeats;
 		} else {
 			this.totalSeats = 100;
-			System.out.println(
-					"Il numero di posti deve essere maggiore di 0\n" + "É stato quindi impostato a " + this.totalSeats);
+			System.out.println("Il numero di posti deve essere maggiore di 0" + "\n" + "É stato quindi impostato a "
+					+ this.totalSeats + "\n");
 		}
 
 		// checks if eventDate is in the future. if it is equal to current date or in
@@ -149,8 +151,9 @@ public class Evento {
 			this.eventDate = LocalDate.parse(eventDate);
 		} else {
 			this.eventDate = LocalDate.now().plusDays(90);
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato.\n"
-					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat));
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato." + "\n"
+					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat)
+					+ "\n");
 
 		}
 
@@ -215,7 +218,7 @@ public class Evento {
 			System.out.println(
 					"La data è stata cambiata correttamente.\nLa nuova data è: " + this.eventDate.format(dateFormat));
 		} else {
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato");
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato" + "\n");
 		}
 
 	}
@@ -237,7 +240,7 @@ public class Evento {
 			System.out.println(
 					"La data è stata cambiata correttamente.\nLa nuova data è: " + this.eventDate.format(dateFormat));
 		} else {
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato");
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato" + "\n");
 		}
 
 	}
@@ -309,7 +312,7 @@ public class Evento {
 		if (this.bookedSeats + 1 > this.totalSeats) {
 			System.out.println("Siamo spiacenti ma non ci sono più posti disponibili");
 		} else if (LocalDate.now().plusDays(1).isAfter(this.eventDate)) {
-			System.out.println("Siamo spiacenti ma l'evento si è già concluso");
+			System.out.println("Siamo spiacenti ma l'evento si è già concluso" + "\n");
 		} else {
 			this.bookedSeats += 1;
 			int ticketNumber = Utils.generateRandomInt(99999, 11111);
@@ -337,9 +340,10 @@ public class Evento {
 		if (Utils.checkDate(eventDate)) {
 			int availableSeats = this.totalSeats - this.bookedSeats;
 			String question = "Quanti posti desidera prenotare?";
-			String invalidInput = "il valore inserito non è valido. É possibile inserire solamente numeri interi";
+			String invalidInput = "il valore inserito non è valido. É possibile inserire solamente numeri interi"
+					+ "\n";
 			String outOfRangeMessage = "Siamo spiacenti ma non ci sono abbastanza posti disponibili.\nAl momento ci sono ancora "
-					+ availableSeats + " posti";
+					+ availableSeats + " posti" + "\n";
 			int requestedSeats = Utils.checkIntInput(scanner, 1, availableSeats, question, invalidInput,
 					outOfRangeMessage);
 			this.bookedSeats += requestedSeats;
@@ -351,7 +355,7 @@ public class Evento {
 			}
 
 		} else {
-			System.out.println("Siamo spiacenti ma l'evento si è già concluso");
+			System.out.println("Siamo spiacenti ma l'evento si è già concluso" + "\n");
 		}
 	}
 
@@ -364,9 +368,10 @@ public class Evento {
 	 */
 	public void disdici() {
 		if (this.bookedSeats == 0) {
-			System.out.println("Non ci sono posti da disdire");
+			System.out.println("Non ci sono posti da disdire" + "\n");
 		} else if (LocalDate.now().plusDays(1).isAfter(this.eventDate)) {
-			System.out.println("Siamo spiacenti, ma l'evento è già concluso.\nImpossibile disdire la prenotazione");
+			System.out.println("Siamo spiacenti, ma l'evento è già concluso." + "\n"
+					+ "Impossibile disdire la prenotazione" + "\n");
 		} else {
 			this.bookedSeats -= 1;
 			System.out.println("Prenotazione annullata");
@@ -378,16 +383,17 @@ public class Evento {
 
 		if (Utils.checkDate(eventDate)) {
 			String question = "Quanti posti desidera disdire?";
-			String invalidInput = "il valore inserito non è valido. É possibile inserire solamente numeri interi";
-			String outOfRangeMessage = "Siamo spiacenti ma ci sono solamente " + this.bookedSeats
-					+ " posti prenotati\nImpossibile disdire";
+			String invalidInput = "il valore inserito non è valido. É possibile inserire solamente numeri interi"
+					+ "\n";
+			String outOfRangeMessage = "Siamo spiacenti ma ci sono solamente " + this.bookedSeats + " posti prenotati"
+					+ "\n" + "Impossibile disdire" + "\n";
 			int canceledSeats = Utils.checkIntInput(scanner, 1, this.bookedSeats, question, invalidInput,
 					outOfRangeMessage);
 			this.bookedSeats -= canceledSeats;
 			System.out.println(canceledSeats + " posti disdetti");
 
 		} else {
-			System.out.println("Siamo spiacenti ma l'evento si è già concluso");
+			System.out.println("Siamo spiacenti ma l'evento si è già concluso" + "\n");
 		}
 	}
 
