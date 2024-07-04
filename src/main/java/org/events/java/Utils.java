@@ -236,4 +236,47 @@ public class Utils {
 		return number;
 	}
 
+	/**
+	 * Prints question and verify that the answer, got through scanner, matches
+	 * positiveChecker or negativeChecker.<br>
+	 * Return true for positiveChecker or false for negativeChecker match.<br>
+	 * if neither conditions is verified, prints error message and keeps asking for
+	 * a valid input<br>
+	 * The comparison is case insensitive<br>
+	 * 
+	 * @param scanner         a scanner instance, used to get user input
+	 * @param question        a question to ask
+	 * @param positiveChecker comparison string
+	 * @param negativeChecker comparison string
+	 * @return true for positive match, false for negative match
+	 */
+	public static boolean checkInputString(Scanner scanner, String question, String positiveChecker,
+			String negativeChecker) {
+
+		String yesOrNo;
+		boolean inputError = false;
+		boolean result = false;
+
+		do {
+			System.out.println(question);
+			yesOrNo = scanner.nextLine().toLowerCase();
+
+			if (yesOrNo.equals(positiveChecker.toLowerCase())) {
+				result = true;
+				inputError = false;
+
+			} else if (yesOrNo.equals(negativeChecker.toLowerCase())) {
+				result = false;
+				inputError = false;
+
+			} else {
+				System.out.println("il valore inserito non è valido.\nInserire \"" + positiveChecker
+						+ "\" per SI oppure \"" + negativeChecker + "\" per NO");
+				inputError = true;
+			}
+		} while (inputError);
+//		
+		return result;
+	}
+
 }
