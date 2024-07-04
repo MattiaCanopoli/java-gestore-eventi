@@ -1,21 +1,22 @@
 package org.events.java;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-
+		// Greets user, than ask for eventName
 		System.out.println("Benvenuto nel nostro programma di inserimento di eventi");
 		System.out.println("Inserire il nome dell'evento");
+		// Creation of a new Scanner instance for System.in
 		Scanner scan = new Scanner(System.in);
+
 		String eventName = scan.nextLine();
 
 		String question;
-		String invalidInput = "Il valore inserito non è valido";
+		String invalidInput = "Il valore inserito non è valido" + "\n";
 
-		int currentYear = LocalDate.now().getYear();
+		// int currentYear = LocalDate.now().getYear();
 		int year;
 		int month;
 		int day;
@@ -24,18 +25,19 @@ public class Main {
 		do {
 
 			question = "Inserire l'anno dell'evento";
-			year = Utils.checkIntInputGreater(scan, currentYear, question, invalidInput);
+			year = Utils.checkIntInput(scan, question, invalidInput);
 
 			question = "Inserire il mese dell'evento";
-			month = Utils.checkIntInput(scan, 1, 12, question, invalidInput, invalidInput);
+			month = Utils.checkIntInput(scan, question, invalidInput);
 
 			question = "Inserire il giorno dell'evento";
-			day = Utils.checkIntInput(scan, 1, 31, question, invalidInput, invalidInput);
+			day = Utils.checkIntInput(scan, question, invalidInput);
 
 			dataValidation = Utils.checkDate(year, month, day);
 
 			if (!dataValidation) {
-				System.out.println("la data inserita non è valida");
+				System.out.println("Sembra che la data inserita sia inesistente oppure passata" + "\n"
+						+ "Inserire una data valida per proseguire" + "\n");
 			}
 
 		} while (!dataValidation);
@@ -58,8 +60,6 @@ public class Main {
 		if (Utils.checkInputString(scan, question, positiveChecker, negativeChecker)) {
 			event.disdici(scan);
 		}
-
-		// TODO inserire domanda Y/N con validazione per disdetta
 
 		int availableSeats = event.getTotalSeats() - event.getBookedSeats();
 
