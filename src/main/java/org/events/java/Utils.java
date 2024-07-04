@@ -1,6 +1,7 @@
 package org.events.java;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -289,6 +290,22 @@ public class Utils {
 		} while (inputError);
 //		
 		return result;
+	}
+
+	/**
+	 * validate time entry
+	 * 
+	 * @param hour    if not within range 00-23, return false
+	 * @param minutes in not in range 00-59, return false
+	 * @return true if time provided is valid, false for invalid entry
+	 */
+	public static boolean checkTime(int hour, int minutes) {
+		try {
+			LocalTime.of(hour, minutes);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }
