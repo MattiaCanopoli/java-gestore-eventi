@@ -28,16 +28,19 @@ public class Utils {
 	 * @return boolean true for future dates, false for past or current date
 	 */
 	public static boolean checkDate(LocalDate inputDate) {
+
 		if (inputDate.isBefore(LocalDate.now().plusDays(1))) {
 			return false;
 		} else {
 			return true;
 		}
+
 	}
 
 	/**
 	 * checks if a date is in the future.<br>
-	 * accept a String as argument.the inputDate String must follow the pattern
+	 * If the date does not exist (e. 30th February) return false.<br>
+	 * Accept a String as argument.the inputDate String must follow the pattern
 	 * <strong>"yyyy-MM-dd"</strong><br>
 	 * dashes within date elements in string are mandatory<br>
 	 * inputDate String is parsed with LocalDate type and then checked<br>
@@ -45,35 +48,44 @@ public class Utils {
 	 * 
 	 * @param inputDate String with date to check. must follow the pattern
 	 *                  "yyyy-MM-dd"
-	 * @return boolean true for future dates, false for past or current date
+	 * @return boolean true for future dates, false for non-existent,past or current
+	 *         date
 	 */
 	public static boolean checkDate(String inputDate) {
-		LocalDate date = LocalDate.parse(inputDate);
-
-		if (date.isBefore(LocalDate.now().plusDays(1))) {
+		try {
+			LocalDate date = LocalDate.parse(inputDate);
+			if (date.isBefore(LocalDate.now().plusDays(1))) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
 			return false;
-		} else {
-			return true;
 		}
 	}
 
 	/**
 	 * Checks if a date is in the future.<br>
+	 * If the date does not exist (e. 30th February) return false.<br>
 	 * If it's before or equal to current day, return false<br>
 	 * Accepts three int as argument (year, month and day)
 	 * 
 	 * @param year
 	 * @param month
 	 * @param day
-	 * @return boolean. true for future dates, false for past or current date
+	 * @return boolean. true for future dates, false for non-existent,past or
+	 *         current date
 	 */
 	public static boolean checkDate(int year, int month, int day) {
-		LocalDate date = LocalDate.of(year, month, day);
-
-		if (date.isBefore(LocalDate.now().plusDays(1))) {
+		try {
+			LocalDate date = LocalDate.of(year, month, day);
+			if (date.isBefore(LocalDate.now().plusDays(1))) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (Exception e) {
 			return false;
-		} else {
-			return true;
 		}
 	}
 
@@ -270,8 +282,8 @@ public class Utils {
 				inputError = false;
 
 			} else {
-				System.out.println("il valore inserito non è valido.\nInserire \"" + positiveChecker
-						+ "\" per SI oppure \"" + negativeChecker + "\" per NO");
+				System.out.println("il valore inserito non è valido." + "\n" + "Inserire \"" + positiveChecker
+						+ "\" per SI oppure \"" + negativeChecker + "\" per NO" + "\n");
 				inputError = true;
 			}
 		} while (inputError);
