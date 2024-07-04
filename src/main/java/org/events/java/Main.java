@@ -45,10 +45,21 @@ public class Main {
 		int totalSeats = Utils.checkIntInputGreater(scan, 0, question, invalidInput);
 
 		Evento event = new Evento(eventName, totalSeats, year, month, day);
-//TODO inserire domanda Y/N con validazione per prenotazione
-		event.prenota(scan);
+		question = "Si desidera prenotare dei posti?";
+		String positiveChecker = "Y";
+		String negativeChecker = "N";
+		if (Utils.checkInputString(scan, question, positiveChecker, negativeChecker)) {
+
+			event.prenota(scan);
+		}
+
+		question = "Si desidera disdire delle prenotazioni?";
+
+		if (Utils.checkInputString(scan, question, positiveChecker, negativeChecker)) {
+			event.disdici(scan);
+		}
+
 		// TODO inserire domanda Y/N con validazione per disdetta
-		event.disdici(scan);
 
 		int availableSeats = event.getTotalSeats() - event.getBookedSeats();
 
