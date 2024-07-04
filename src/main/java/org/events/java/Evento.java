@@ -19,7 +19,7 @@ import java.util.Scanner;
  * be set in the past.</strong> Can be set with setEventDate() and read with
  * getEventDate(). getFormattedDate() returns a String of the date, formatted
  * with the dateFormat pattern
- * <li><strong>dateFormat</strong> DateTimeFormatter. deafult pattern to
+ * <li><strong>dateFormat</strong> DateTimeFormatter. default pattern to
  * represent a date
  */
 public class Evento {
@@ -61,7 +61,7 @@ public class Evento {
 			this.eventDate = eventDate;
 		} else {
 			this.eventDate = LocalDate.now().plusDays(90);
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato." + "\n"
+			System.out.println("La data inserita non è valida oppure già passata." + "\n"
 					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat)
 					+ "\n");
 
@@ -105,7 +105,7 @@ public class Evento {
 			this.eventDate = LocalDate.of(year, month, day);
 		} else {
 			this.eventDate = LocalDate.now().plusDays(90);
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato." + "\n"
+			System.out.println("La data inserita non è valida oppure già passata." + "\n"
 					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat)
 					+ "\n");
 
@@ -151,7 +151,7 @@ public class Evento {
 			this.eventDate = LocalDate.parse(eventDate);
 		} else {
 			this.eventDate = LocalDate.now().plusDays(90);
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato." + "\n"
+			System.out.println("La data inserita non è valida oppure già passata." + "\n"
 					+ "La data è stata impostata automaticamente al giorno " + this.eventDate.format(dateFormat)
 					+ "\n");
 
@@ -379,6 +379,7 @@ public class Evento {
 
 	}
 
+//TODO scrivere docs
 	public void disdici(Scanner scanner) {
 
 		if (Utils.checkDate(eventDate)) {
@@ -396,8 +397,6 @@ public class Evento {
 			System.out.println("Siamo spiacenti ma l'evento si è già concluso" + "\n");
 		}
 	}
-
-	// TODO scrivere metodo disdici con input utente
 
 	/**
 	 * prints eventDate formatted with dateFormat pattern and eventName
