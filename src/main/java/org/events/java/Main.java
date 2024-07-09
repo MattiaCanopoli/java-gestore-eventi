@@ -77,7 +77,7 @@ public class Main {
 		// provided.
 		// Valid inputs are defined via positiveChecker and negativeChecker variables
 		// if input is equal to positive checker, calls Evento.disdici method
-		question = "Si desidera disdire delle prenotazioni?";
+		question = "Si desidera disdire delle prenotazioni? (S/N)";
 
 		if (Utils.checkInputString(scan, question, positiveChecker, negativeChecker)) {
 			event.disdici(scan);
