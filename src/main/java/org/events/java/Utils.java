@@ -308,4 +308,20 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * validate time entry in String type
+	 * 
+	 * @param time a string representing the time to verify. must follow the pattern
+	 *             "hh:mm" or "hh:mm:ss"
+	 * @return true if time provided is valid, false for invalid entry
+	 */
+	public static boolean checkTime(String time) {
+		try {
+			LocalTime.parse(time);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }
