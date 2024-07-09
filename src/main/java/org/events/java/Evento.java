@@ -200,11 +200,31 @@ public class Evento {
 	}
 
 	/**
-	 * change event date to new one. requires three arguments for year, month and
-	 * day.<br>
+	 * change event date to new one.<br>
+	 * Change event date to a new one<br>
 	 * checks if the new date it's in the future. prints a confirmation message with
 	 * the new date. if the date provided it's the current day or it's in the past,
 	 * prints an error message. the event date won't be changed.
+	 * 
+	 * @param eventDate LocalDate of the new date
+	 */
+	public void setEventDate(LocalDate eventDate) {
+		if (Utils.checkDate(eventDate)) {
+			this.eventDate = eventDate;
+			System.out.println("La data è stata cambiata correttamente." + "\n" + "La nuova data è: "
+					+ this.eventDate.format(dateFormat));
+		} else {
+			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato" + "\n");
+		}
+	}
+
+	/**
+	 * overload of setEventDate()<br>
+	 * change event date to new one. requires three arguments for year, month and
+	 * day.<br>
+	 * checks if the new date exists and it's in the future. prints a confirmation
+	 * message with the new date. if the date provided it's the current day or it's
+	 * in the past, prints an error message. the event date won't be changed.
 	 * 
 	 * @param year  int. year of the event.
 	 * @param month int. month of the event.
@@ -212,35 +232,33 @@ public class Evento {
 	 */
 	public void setEventDate(int year, int month, int day) {
 
-		LocalDate newDate = LocalDate.of(year, month, day);
-		if (Utils.checkDate(newDate)) {
-			this.eventDate = newDate;
-			System.out.println(
-					"La data è stata cambiata correttamente.\nLa nuova data è: " + this.eventDate.format(dateFormat));
+		if (Utils.checkDate(year, month, day)) {
+			this.eventDate = LocalDate.of(year, month, day);
+			System.out.println("La data è stata cambiata correttamente." + "\n" + "La nuova data è: "
+					+ this.eventDate.format(dateFormat));
 		} else {
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato" + "\n");
+			System.out.println("Sembra che la data inserita non esista oppure sia già passata" + "\n");
 		}
 
 	}
 
 	/**
-	 * overload of setEventDate() change event date to new one. requires a string as
-	 * argument.<br>
-	 * checks if the new date it's in the future. prints a confirmation message with
-	 * the new date. if the date provided it's the current day or it's in the past,
-	 * prints an error message. the event date won't be changed.
+	 * overload of setEventDate()<br>
+	 * change event date to new one. requires a string as argument.<br>
+	 * checks if the new date exist and it's in the future. prints a confirmation
+	 * message with the new date. if the date provided it's the current day or it's
+	 * in the past, prints an error message. the event date won't be changed.
 	 * 
 	 * @param eventDate date of the event. mandatory format: "yyyy-mm-dd"
 	 */
 	public void setEventDate(String eventDate) {
 
-		LocalDate newDate = LocalDate.parse(eventDate);
-		if (Utils.checkDate(newDate)) {
-			this.eventDate = newDate;
-			System.out.println(
-					"La data è stata cambiata correttamente.\nLa nuova data è: " + this.eventDate.format(dateFormat));
+		if (Utils.checkDate(eventDate)) {
+			this.eventDate = LocalDate.parse(eventDate);
+			System.out.println("La data è stata cambiata correttamente." + "\n" + "La nuova data è: "
+					+ this.eventDate.format(dateFormat));
 		} else {
-			System.out.println("Impossiblile impostare la data nell'evento ad un giorno passato" + "\n");
+			System.out.println("Sembra che la data inserita non esista oppure sia già passata" + "\n");
 		}
 
 	}
@@ -370,8 +388,7 @@ public class Evento {
 		if (this.bookedSeats == 0) {
 			System.out.println("Non ci sono posti da disdire" + "\n");
 		} else if (LocalDate.now().plusDays(1).isAfter(this.eventDate)) {
-			System.out.println("Siamo spiacenti, ma l'evento è già concluso." + "\n"
-					+ "Impossibile disdire la prenotazione" + "\n");
+			System.out.println("Siamo spiacenti, ma non è più possibile disdire" + "\n");
 		} else {
 			this.bookedSeats -= 1;
 			System.out.println("Prenotazione annullata");
@@ -379,7 +396,18 @@ public class Evento {
 
 	}
 
-//TODO scrivere docs
+	/**
+	 * Subtract an int provided by the user from bookedSeats.<br>
+	 * <br>
+	 * Compares eventDate with current date. if eventDate is in the past or current
+	 * day, prints error message<br>
+	 * Get user input and verify that is an integer within range 1 to bookedSeats.
+	 * if not, prints an error message, also displaying bookedSeats.<br>
+	 * Else, subtract users input from bookedSeats. prints a confirmation
+	 * message<br>
+	 * 
+	 * @param scanner a scanner instance to get user input.
+	 */
 	public void disdici(Scanner scanner) {
 
 		if (Utils.checkDate(eventDate)) {
@@ -394,7 +422,7 @@ public class Evento {
 			System.out.println(canceledSeats + " posti disdetti");
 
 		} else {
-			System.out.println("Siamo spiacenti ma l'evento si è già concluso" + "\n");
+			System.out.println("Siamo spiacenti, ma non è più possibile disdire" + "\n");
 		}
 	}
 
