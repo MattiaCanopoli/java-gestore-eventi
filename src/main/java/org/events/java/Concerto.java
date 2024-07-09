@@ -11,13 +11,17 @@ import java.time.format.DateTimeFormatter;
  * <li><strong>float concertPrice</strong> Price of the concert</li>
  * <li><strong>LocalTime concertTime</strong> Starting time of the concert, in
  * hh:mm</li>
+ * <li><strong>String formattedPrice</strong> concertPrice in human form
+ * (##.##€)
+ * <li><strong>DateTimeFormatter timeFormat</strong> default time formatter
  * </ol>
  */
 public class Concerto extends Evento {
 
-	float concertPrice;
-	LocalTime concertTime;
-	DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm");
+	private float concertPrice;
+	private LocalTime concertTime;
+	private String formattedPrice = String.format("%.2f€", this.concertPrice);
+	private DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm");
 
 	public Concerto(String eventName, int totalSeats, String eventDate, String concertTime, float concertPrice) {
 		super(eventName, totalSeats, eventDate);
@@ -108,7 +112,6 @@ public class Concerto extends Evento {
 
 	@Override
 	public String toString() {
-		String formattedPrice = String.format("%.2f€", this.concertPrice);
 		return super.toString() + " " + formattedPrice;
 	}
 }
