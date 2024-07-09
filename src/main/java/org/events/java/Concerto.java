@@ -110,6 +110,10 @@ public class Concerto extends Evento {
 
 	}
 
+	public String getFormattedPrice() {
+		return this.formattedPrice;
+	}
+
 	@Override
 	public String toString() {
 		return super.toString() + " " + formattedPrice;
