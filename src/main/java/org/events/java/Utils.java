@@ -124,50 +124,6 @@ public class Utils {
 	}
 
 	/**
-	 * Ask question to user and checks if answer is an integer within the given
-	 * limits<br>
-	 * If user provides a valid integer, return the integer given.<br>
-	 * An integer equal to the limits is considered a valid input<br>
-	 * Else, prints invalidImput message and keeps on asking until a valid input is
-	 * provided.<br>
-	 * 
-	 * @param scanner             a scanner instance for System.in
-	 * @param min                 lower limit
-	 * @param max                 upper limit
-	 * @param question            a string representing the question to ask
-	 * @param invalidImputMessage error message for not int input
-	 * @param outOfRangeInput     error message for out of range input
-	 * @return int the requested integer
-	 */
-	public static int checkIntInput(Scanner scanner, int min, int max, String question, String invalidImputMessage,
-			String outOfRangeInput) {
-		boolean check = false;
-		int number = 0;
-
-		do {
-			System.out.println(question);
-
-			if (scanner.hasNextInt()) {
-				number = scanner.nextInt();
-				scanner.nextLine();
-
-			} else {
-				scanner.nextLine();
-				System.out.println(invalidImputMessage);
-			}
-
-			if (number <= max && number >= min) {
-				check = true;
-			} else {
-				System.out.println(outOfRangeInput);
-			}
-
-		} while (!check);
-
-		return number;
-	}
-
-	/**
 	 * Ask question to user and checks if answer is an integer greater than a lower
 	 * limit<br>
 	 * If user provides a valid integer, return the integer given.<br>
@@ -192,14 +148,13 @@ public class Utils {
 			if (scanner.hasNextInt()) {
 				number = scanner.nextInt();
 				scanner.nextLine();
+				if (number >= min) {
+					check = true;
+				} else {
+					System.out.println(invalidImputMessage);
+				}
 			} else {
 				scanner.nextLine();
-				System.out.println(invalidImputMessage);
-			}
-
-			if (number >= min) {
-				check = true;
-			} else {
 				System.out.println(invalidImputMessage);
 			}
 
@@ -233,14 +188,13 @@ public class Utils {
 			if (scanner.hasNextInt()) {
 				number = scanner.nextInt();
 				scanner.nextLine();
+				if (number >= max) {
+					check = true;
+				} else {
+					System.out.println(invalidImputMessage);
+				}
 			} else {
 				scanner.nextLine();
-				System.out.println(invalidImputMessage);
-			}
-
-			if (number >= max) {
-				check = true;
-			} else {
 				System.out.println(invalidImputMessage);
 			}
 
