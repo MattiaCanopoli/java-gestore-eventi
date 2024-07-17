@@ -343,9 +343,10 @@ public class Evento {
 	 * <br>
 	 * Compares eventDate with current date. if eventDate is in the past, prints
 	 * error message<br>
-	 * Get user input and verify that is an integer within range 0 to availableSeats
-	 * (totalSeats-bookedSeats). if not, prints an error message, also displaying
-	 * availableSeats.<br>
+	 * Get user input and verify that is a positive integer. if not, prints an error
+	 * message and ask again for a valid input.<br>
+	 * if previous check is passed, verify that there are enough available seats. if
+	 * not, prints an error message displaying available seats and ask again.<br>
 	 * Else, adds users input to bookedSeats. prints a confirmation message and
 	 * consecutive ticket numbers<br>
 	 * The first ticket number is a random int of 5 digits, the subsequent ones are
@@ -356,24 +357,39 @@ public class Evento {
 	public void prenota(Scanner scanner) {
 
 		if (Utils.checkDate(eventDate)) {
-			int availableSeats = this.totalSeats - this.bookedSeats;
+
 			String question = "Quanti posti desidera prenotare?";
 			String invalidInput = "il valore inserito non è valido. É possibile inserire solamente numeri interi"
 					+ "\n";
-			String outOfRangeMessage = "Siamo spiacenti ma non ci sono abbastanza posti disponibili.\nAl momento ci sono ancora "
-					+ availableSeats + " posti" + "\n";
-			int requestedSeats = Utils.checkIntInput(scanner, 1, availableSeats, question, invalidInput,
-					outOfRangeMessage);
-			this.bookedSeats += requestedSeats;
-			System.out.println("Vi abbiamo riservato " + requestedSeats + " posti\nEcco i vostri biglietti");
-			int ticket = Utils.generateRandomInt(99999, 11111);
-			for (int i = 0; i < requestedSeats; i++) {
-				ticket += 1;
-				System.out.println("#" + ticket);
-			}
+
+			boolean check = false;
+			do {
+				int requestedSeats = Utils.checkIntInputGreater(scanner, 1, question, invalidInput);
+
+				int availableSeats = this.totalSeats - this.bookedSeats;
+
+				if (requestedSeats <= availableSeats) {
+					this.bookedSeats += requestedSeats;
+					System.out.println("Vi abbiamo riservato " + requestedSeats + " posti\nEcco i vostri biglietti");
+					int ticket = Utils.generateRandomInt(99999, 11111);
+
+					for (int i = 0; i < requestedSeats; i++) {
+						ticket += 1;
+						System.out.println("#" + ticket);
+						check = true;
+					}
+
+				} else {
+					System.out.println(
+							"Siamo spiacenti ma non ci sono abbastanza posti disponibili.\nAl momento ci sono ancora "
+									+ availableSeats + " posti" + "\n");
+				}
+
+			} while (!check);
 
 		} else {
 			System.out.println("Siamo spiacenti ma l'evento si è già concluso" + "\n");
+
 		}
 	}
 
@@ -401,8 +417,11 @@ public class Evento {
 	 * <br>
 	 * Compares eventDate with current date. if eventDate is in the past or current
 	 * day, prints error message<br>
-	 * Get user input and verify that is an integer within range 1 to bookedSeats.
-	 * if not, prints an error message, also displaying bookedSeats.<br>
+	 * Get user input and verify that is a positive integer. if check is not passed,
+	 * prints and error message and asks again for a valid input.<br>
+	 * if previous check is passed, verify that there are enough seats to cancel. if
+	 * check is not passed, prints an error message, also displaying bookedSeats.
+	 * keeps asking for a valid input<br>
 	 * Else, subtract users input from bookedSeats. prints a confirmation
 	 * message<br>
 	 * 
@@ -414,12 +433,21 @@ public class Evento {
 			String question = "Quanti posti desidera disdire?";
 			String invalidInput = "il valore inserito non è valido. É possibile inserire solamente numeri interi"
 					+ "\n";
-			String outOfRangeMessage = "Siamo spiacenti ma ci sono solamente " + this.bookedSeats + " posti prenotati"
-					+ "\n" + "Impossibile disdire" + "\n";
-			int canceledSeats = Utils.checkIntInput(scanner, 1, this.bookedSeats, question, invalidInput,
-					outOfRangeMessage);
-			this.bookedSeats -= canceledSeats;
-			System.out.println(canceledSeats + " posti disdetti");
+
+			boolean check = false;
+			do {
+				int canceledSeats = Utils.checkIntInputGreater(scanner, 1, question, invalidInput);
+
+				if (canceledSeats <= this.bookedSeats) {
+					this.bookedSeats -= canceledSeats;
+					System.out.println(canceledSeats + " posti disdetti");
+					check = true;
+
+				} else {
+					System.out.println("Siamo spiacenti ma ci sono solamente " + this.bookedSeats + " posti prenotati"
+							+ "\n" + "Impossibile disdire" + "\n");
+				}
+			} while (!check);
 
 		} else {
 			System.out.println("Siamo spiacenti, ma non è più possibile disdire" + "\n");
