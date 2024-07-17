@@ -20,7 +20,6 @@ public class Concerto extends Evento {
 
 	private float concertPrice;
 	private LocalTime concertTime;
-	private String formattedPrice = String.format("%.2f€", this.concertPrice);
 	private DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hh:mm");
 
 	public Concerto(String eventName, int totalSeats, String eventDate, String concertTime, float concertPrice) {
@@ -111,11 +110,12 @@ public class Concerto extends Evento {
 	}
 
 	public String getFormattedPrice() {
-		return this.formattedPrice;
+		return String.format("%.2f€", this.concertPrice);
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + " " + formattedPrice;
+		return "DATA: " + super.getFormattedEventDate() + "\n" + "ORARIO: " + this.concertTime + "\n" + "TITOLO: "
+				+ super.getEventName() + "\n" + "PREZZO: " + String.format("%.2f€", this.concertPrice);
 	}
 }
