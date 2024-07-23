@@ -51,7 +51,7 @@ public class Concerto extends Evento {
 	 * @return float
 	 */
 	public float getConcertPrice() {
-		return concertPrice;
+		return this.concertPrice;
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Concerto extends Evento {
 	 * @return LocalTime
 	 */
 	public LocalTime getConcertTime() {
-		return concertTime;
+		return this.concertTime;
 	}
 
 	/**
