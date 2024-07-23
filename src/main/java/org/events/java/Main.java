@@ -1,97 +1,87 @@
 package org.events.java;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
-		// Greets user, than ask for eventName
-		System.out.println("Benvenuto nel nostro programma di inserimento di eventi");
-		System.out.println("Inserire il nome dell'evento");
-		// Creation of a new Scanner instance for System.in
+		// TODO Auto-generated method stub
+
+		// Create a new Scanner instance.
+		// Greet user
 		Scanner scan = new Scanner(System.in);
-		// Initialization of a new string. The value is obtained from user input
-		String eventName = scan.nextLine();
-		// Declaration of a new string. will be assigned multiple times to different
-		// values, depending on the question to ask
-		String question;
-		// Initialization of a new string for a default error message to be printed in
-		// case of invalid user input
-		String invalidInput = "Il valore inserito non è valido" + "\n";
+		System.out.println("Benvenuto nel nostro programma di inserimento di eventi");
 
-		// Declaration of three variables. The values are obtained from user input
-		int year;
-		int month;
-		int day;
+		// Ask for eventName. waits for input
+		System.out.println("Inserire il nome dell'evento");
+		String title = scan.nextLine();
 
-		// Initialization of a boolean variable to be used in the following do/while
-		// loop.
-		// Loop will ends if dataValidation is true
-		boolean dataValidation = false;
+		// Instantiate two strings, to be used as parameters in following methods
+		String errorMessage = "Il valore inserito non è valido";
+		String question = "Inserire il numero di posti disponibili";
+
+		// Get seats value through user input, verified with isIntGreater method
+		int seats = ValidationUtils.isIntGreater(scan, 1, question, errorMessage);
+
+		// Instantiate a boolean variable to be used as do/while exit condition
+		boolean validDateCheck = false;
+		// Instantiate a LocalDate variable that will be reassigned at the end of the
+		// do/while loop
+		LocalDate eventDate = LocalDate.now();
+
 		do {
-
-			// ask for year. loops until an int is provided
+			// Get year value through user input, verified with isInt method
 			question = "Inserire l'anno dell'evento";
-			year = Utils.checkIntInput(scan, question, invalidInput);
-
-			// ask for month. loops until an int is provided
-			question = "Inserire il mese dell'evento";
-			month = Utils.checkIntInput(scan, question, invalidInput);
-
-			// ask for day. loops until an int is provided
+			int year = ValidationUtils.isInt(scan, question, errorMessage);
+			// Get month value through user input, verified with isInt method
+			question = "Inserire il mese dell'evento (1-12)";
+			int month = ValidationUtils.isInt(scan, question, errorMessage);
+			// Get day value through user input, verified with isInt method
 			question = "Inserire il giorno dell'evento";
-			day = Utils.checkIntInput(scan, question, invalidInput);
-
-			// validate the date. a valid date is an existing date in the future
-			dataValidation = Utils.checkDate(year, month, day);
-
-			// if the provided date is not valid, prints error message and restart the loop
-			if (!dataValidation) {
-				System.out.println("Sembra che la data inserita sia inesistente oppure passata" + "\n"
-						+ "Inserire una data valida per proseguire" + "\n");
+			int day = ValidationUtils.isInt(scan, question, errorMessage);
+			/*
+			 * Verify the given date. if date is not valid (past, current date or not
+			 * existent) print a message and loop again. Else, assign the value to eventDate
+			 * and exit the loop
+			 */
+			if (ValidationUtils.checkDate(year, month, day)) {
+				eventDate = LocalDate.of(year, month, month);
+				validDateCheck = true;
+			} else {
+				System.out.println("Sembra che la data inserita sia inesistente oppure passata." + "\n"
+						+ "Inserire una data valida per proseguire." + "\n");
 			}
 
-		} while (!dataValidation);
+		} while (!validDateCheck);
 
-		// ask for total seats. loops until a valid int (>1) is provided
-		question = "Inserire numero totale di posti disponibili";
-		int totalSeats = Utils.checkIntInputGreater(scan, 1, question, invalidInput);
+		// constructs a new Evento. the previously gotten values are passed as arguments
+		Evento event = new Evento(title, seats, eventDate);
 
-		// creation of a new Evento instance
-		Evento event = new Evento(eventName, totalSeats, year, month, day);
-
-		// ask user if wants to book and verify the answer. loops until a valid input is
-		// provided.
-		// Valid inputs are defined via positiveChecker and negativeChecker variables
-		// if input is equal to positive checker, calls Evento.prenota method
+		// ask user if wants to book seats. input is verified with inputMatches
 		question = "Si desidera prenotare dei posti? (S/N)";
-		String positiveChecker = "S";
-		String negativeChecker = "N";
-
-		if (Utils.checkInputString(scan, question, positiveChecker, negativeChecker)) {
-
+		if (ValidationUtils.inputMatches(scan, question, "S", "N")) {
+			// on positive answer, ask for quantity to book
 			event.prenota(scan);
 		}
 
-		// ask user if will to cancel any booking. loops until a valid input is
-		// provided.
-		// Valid inputs are defined via positiveChecker and negativeChecker variables
-		// if input is equal to positive checker, calls Evento.disdici method
-		question = "Si desidera disdire delle prenotazioni? (S/N)";
-
-		if (Utils.checkInputString(scan, question, positiveChecker, negativeChecker)) {
-			event.disdici(scan);
+		// if there are booked seats, ask user if wants to cancel any booking
+		if (event.getBookedSeats() > 0) {
+			question = "Si desidera disdire dei posti? (S/N)";
+			if (ValidationUtils.inputMatches(scan, question, "S", "N")) {
+				// on positive answer, ask for quantity to cancel
+				event.disdici(scan);
+			}
 		}
 
-		// initialization of a new variable. calls two methods to get the available
-		// seats value
+		// get available seats after bookings and cancellations
 		int availableSeats = event.getTotalSeats() - event.getBookedSeats();
 
-		// prints a string of total of booked seats and available seats
-		System.out
-				.println("Posti prenotati: " + event.getBookedSeats() + "\n" + "Posti disponibili: " + availableSeats);
+		// prints available and booked seats
+		System.out.println("Posti disponibili: " + availableSeats);
+		System.out.println("Posti prenotati: " + event.getBookedSeats());
 
 		scan.close();
-
 	}
+
 }
