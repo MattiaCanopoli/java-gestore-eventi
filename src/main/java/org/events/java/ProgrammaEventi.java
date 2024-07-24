@@ -70,4 +70,12 @@ public class ProgrammaEventi {
 		}
 	}
 
+	/**
+	 * Gets the number of Evento instances in eventList
+	 * 
+	 * @return int
+	 */
+	public int eventsCount() {
+		return this.eventList.size();
+	}
 }
