@@ -86,8 +86,29 @@ public class ProgrammaEventi {
 		this.eventList.clear();
 	}
 
+	public void sortProgram() {
+		boolean swap = false;
+		do {
+			swap = false;
+			for (int i = 1; i < this.eventList.size(); i++) {
+
+				Evento currentElement = this.eventList.get(i);
+				Evento previousElement = this.eventList.get(i - 1);
+				LocalDate currentElementDate = currentElement.getEventDate();
+				LocalDate previousElementDate = previousElement.getEventDate();
+
+				if (currentElementDate.isBefore(previousElementDate)) {
+					this.eventList.set(i - 1, currentElement);
+					this.eventList.set(i, previousElement);
+					swap = true;
+				}
+			}
+		} while (swap);
+	}
+
 	public String showProgram() {
-		String fullProgram = this.programTitle + "\n";
+		this.sortProgram();
+		String fullProgram = this.programTitle.toUpperCase() + "\n";
 		for (Evento event : this.eventList) {
 			fullProgram += event.getFormattedEventDate() + " - " + event.getEventTitle() + "\n";
 		}
