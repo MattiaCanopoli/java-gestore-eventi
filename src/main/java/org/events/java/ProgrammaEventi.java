@@ -78,4 +78,20 @@ public class ProgrammaEventi {
 	public int eventsCount() {
 		return this.eventList.size();
 	}
+
+	/**
+	 * removes all the Evento instances in eventList
+	 */
+	public void clearEventList() {
+		this.eventList.clear();
+	}
+
+	public String showProgram() {
+		String fullProgram = this.programTitle + "\n";
+		for (Evento event : this.eventList) {
+			fullProgram += event.getFormattedEventDate() + " - " + event.getEventTitle() + "\n";
+		}
+		return fullProgram;
+	}
+
 }
