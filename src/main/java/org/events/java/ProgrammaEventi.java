@@ -18,9 +18,31 @@ public class ProgrammaEventi {
 	public ProgrammaEventi(String programTitle) {
 		this.programTitle = programTitle;
 		this.eventList = new ArrayList<Evento>();
-
 	}
 
+	/**
+	 * Gets programTitle field
+	 * 
+	 * @return String
+	 */
+	public String getProgramTitle() {
+		return this.programTitle;
+	}
+
+	/**
+	 * Change programTitle to a new value, passed ad parameter
+	 * 
+	 * @param programTitle String. the new programTitle
+	 */
+	public void setProgramTitle(String programTitle) {
+		this.programTitle = programTitle;
+	}
+
+	/**
+	 * Adds a new Evento object, passed as parameter, to eventList
+	 * 
+	 * @param event Evento. the object to add
+	 */
 	public void addEvent(Evento event) {
 		this.eventList.add(event);
 	}
