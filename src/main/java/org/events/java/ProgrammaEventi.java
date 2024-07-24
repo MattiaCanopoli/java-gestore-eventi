@@ -1,5 +1,6 @@
 package org.events.java;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,28 @@ public class ProgrammaEventi {
 	 */
 	public void addEvent(Evento event) {
 		this.eventList.add(event);
+	}
+
+	/**
+	 * Prints eventTitle of every Evento in eventList
+	 */
+	public void listEvents() {
+		for (Evento event : this.eventList) {
+			System.out.println(event.getEventTitle());
+		}
+	}
+
+	/**
+	 * * Prints eventTitle of every Evento in eventList whose eventDate matches the
+	 * LocalDate passed as parameter
+	 * 
+	 * @param eventDate LocalDate.
+	 */
+	public void listEvents(LocalDate eventDate) {
+		for (Evento event : this.eventList) {
+			if (event.getEventDate().equals(eventDate))
+				System.out.println(event.getEventTitle());
+		}
 	}
 
 }
