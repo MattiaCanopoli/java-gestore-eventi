@@ -21,4 +21,8 @@ public class ProgrammaEventi {
 
 	}
 
+	public void addEvent(Evento event) {
+		this.eventList.add(event);
+	}
+
 }
