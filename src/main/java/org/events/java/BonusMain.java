@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
 
-public class Main {
+public class BonusMain {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
