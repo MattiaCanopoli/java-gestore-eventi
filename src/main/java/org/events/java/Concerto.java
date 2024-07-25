@@ -148,7 +148,7 @@ public class Concerto extends Evento {
 
 	/**
 	 * Overrides Evento.toString()<br>
-	 * Gets a string of formatted date and time (dd MMMM yyyy; hh:mm am/pm);
+	 * Gets a string of formatted date and time (dd MMMM yyyy; hh:mm am/pm),
 	 * eventTitle and formatted price (##.##€)
 	 * 
 	 * @return String

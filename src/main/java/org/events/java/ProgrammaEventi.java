@@ -31,16 +31,16 @@ public class ProgrammaEventi {
 	}
 
 	/**
-	 * Change programTitle to a new value, passed ad parameter
+	 * Change Title to a new value, passed ad parameter
 	 * 
-	 * @param programTitle String. the new programTitle
+	 * @param programTitle String. the title
 	 */
 	public void setProgramTitle(String programTitle) {
 		this.programTitle = programTitle;
 	}
 
 	/**
-	 * Adds a new Evento object, passed as parameter, to eventList
+	 * Adds a new Evento object, passed as parameter, to ProgrammaEventi
 	 * 
 	 * @param event Evento. the object to add
 	 */
@@ -49,7 +49,7 @@ public class ProgrammaEventi {
 	}
 
 	/**
-	 * Prints eventTitle of every Evento in eventList
+	 * Prints Title of every Evento in ProgrammaEventi
 	 */
 	public void listEvents() {
 		for (Evento event : this.eventList) {
@@ -58,7 +58,7 @@ public class ProgrammaEventi {
 	}
 
 	/**
-	 * * Prints eventTitle of every Evento in eventList whose eventDate matches the
+	 * * Prints title of every Evento in ProgrammaEventi whose date matches the
 	 * LocalDate passed as parameter
 	 * 
 	 * @param eventDate LocalDate.
@@ -71,7 +71,7 @@ public class ProgrammaEventi {
 	}
 
 	/**
-	 * Gets the number of Evento instances in eventList
+	 * Gets the number of Evento instances in ProgrammaEventi
 	 * 
 	 * @return int
 	 */
@@ -80,12 +80,13 @@ public class ProgrammaEventi {
 	}
 
 	/**
-	 * removes all the Evento instances in eventList
+	 * removes all the Evento instances in ProgrammaEventi
 	 */
 	public void clearEventList() {
 		this.eventList.clear();
 	}
 
+	// Sorts ProgrammaEventi by date
 	public void sortProgram() {
 		boolean swap = false;
 		do {
@@ -106,6 +107,13 @@ public class ProgrammaEventi {
 		} while (swap);
 	}
 
+	/**
+	 * Sorts every Evento in ProgrammaEventi by date.<br>
+	 * Return a string representing a list of all the Evento instances (date and
+	 * title) in ProgrammaEventi
+	 * 
+	 * @return String. a list of all the Evento instances in ProgrammaEventi
+	 */
 	public String showProgram() {
 		this.sortProgram();
 		String fullProgram = this.programTitle.toUpperCase() + "\n";

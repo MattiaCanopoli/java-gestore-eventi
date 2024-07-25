@@ -352,7 +352,7 @@ public class Evento {
 	}
 
 	/**
-	 * Gets a string of formatted eventDate and eventTitle
+	 * Gets a string of formatted Date and Title of the Evento instance
 	 * 
 	 * @return String
 	 */
