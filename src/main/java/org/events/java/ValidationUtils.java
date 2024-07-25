@@ -1,6 +1,7 @@
 package org.events.java;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 /**
@@ -152,6 +153,15 @@ public class ValidationUtils {
 		}
 	}
 
+	public static boolean checkTime(String userInputTime) {
+		try {
+			LocalTime time = LocalTime.parse(userInputTime);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 	/**
 	 * Ask question and waits for user input.<br>
 	 * Compares user input to positiveCheck and negativeCheck<br>
@@ -188,6 +198,31 @@ public class ValidationUtils {
 		} while (!check);
 
 		return result;
+	}
+
+	public static int getChoice(Scanner scanner, String question, String errorMessage, String[] choices) {
+		boolean check = false;
+		int index = -1;
+		do {
+
+			System.out.println(question);
+			for (String choice : choices) {
+				System.out.println("- " + choice);
+			}
+
+			String choice = scanner.nextLine();
+
+			for (int i = 0; i < choices.length; i++) {
+				if (choice.toLowerCase().equals(choices[i].toLowerCase())) {
+					check = true;
+					index = i;
+				}
+			}
+			if (index == -1) {
+				System.out.println(errorMessage);
+			}
+		} while (!check);
+		return index;
 	}
 
 	/**
