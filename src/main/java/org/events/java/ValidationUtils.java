@@ -155,6 +155,7 @@ public class ValidationUtils {
 
 	public static boolean checkTime(String userInputTime) {
 		try {
+			@SuppressWarnings("unused")
 			LocalTime time = LocalTime.parse(userInputTime);
 			return true;
 		} catch (Exception e) {
