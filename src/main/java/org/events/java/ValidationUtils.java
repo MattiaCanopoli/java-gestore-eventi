@@ -77,7 +77,12 @@ public class ValidationUtils {
 		}
 	}
 
-	// TODO: java docs
+	/**
+	 * Verify that a time, passed as string parameter, exists
+	 * 
+	 * @param userInputTime String. time to verify. format must be hh:mm
+	 * @return boolean. true if time exist
+	 */
 	public static boolean checkTime(String userInputTime) {
 		try {
 			@SuppressWarnings("unused")
@@ -126,7 +131,13 @@ public class ValidationUtils {
 		return result;
 	}
 
-	// TODO java docs
+	/**
+	 * search a string in an array of strings
+	 * 
+	 * @param String.   choice string to search
+	 * @param String[]. choices array to search in
+	 * @return boolean. true if the string is found
+	 */
 	public static boolean checkChoice(String choice, String[] choices) {
 		boolean check = false;
 		for (int i = 0; i < choices.length; i++) {
