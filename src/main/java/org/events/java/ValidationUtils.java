@@ -1,7 +1,9 @@
 package org.events.java;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -148,7 +150,7 @@ public class ValidationUtils {
 			} else {
 				return true;
 			}
-		} catch (Exception e) {
+		} catch (DateTimeException e) {
 			return false;
 		}
 	}
@@ -158,7 +160,7 @@ public class ValidationUtils {
 			@SuppressWarnings("unused")
 			LocalTime time = LocalTime.parse(userInputTime);
 			return true;
-		} catch (Exception e) {
+		} catch (DateTimeParseException e) {
 			return false;
 		}
 	}
