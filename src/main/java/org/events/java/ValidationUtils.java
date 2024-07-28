@@ -11,6 +11,8 @@ import java.util.Scanner;
  */
 public class ValidationUtils {
 
+	// NUMBER VALIDATION
+
 	/**
 	 * Checks if user input is int equal or greater than lowerLimit.<br>
 	 * Prints question and waits for user input<br>
@@ -88,6 +90,8 @@ public class ValidationUtils {
 
 	}
 
+	// DATE AND TIME VALIDATION
+
 	/**
 	 * Verify that a given date, defined by three int passed as parameters (year,
 	 * month,day) exists and is valid.<br>
@@ -145,6 +149,9 @@ public class ValidationUtils {
 	 * @return boolean. true if input matches positiveCheck; false if it matches
 	 *         negativeCheck
 	 */
+
+	// USER CHOICES VALIDATION
+
 	public static boolean inputMatches(Scanner scanner, String question, String positiveCheck, String negativeCheck) {
 		boolean check = false;
 		boolean result = false;
