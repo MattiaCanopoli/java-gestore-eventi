@@ -52,6 +52,43 @@ public class ValidationUtils {
 	}
 
 	/**
+	 * Checks if user input is float equal or greater than lowerLimit.<br>
+	 * Prints question and waits for user input<br>
+	 * If user input is valid (is a float equal or greater than lowerLimit), returns
+	 * the given number. else, prints errorMessage.<br>
+	 * Keeps asking until a valid input is provided.
+	 * 
+	 * @param scanner      Scanner. an open scanner instance, to get user input
+	 * @param lowerLimit   int. a number to be compared with user input.
+	 * @param question     String. a question to ask. the answer must be a float.
+	 *                     (e.g. "Insert object price")
+	 * @param errorMessage String. an error message to print if user input is not an
+	 *                     int (e.g. "Invalid input. Retry")
+	 * @return int. the given number
+	 */
+	public static float isFloatGreater(Scanner scanner, int lowerLimit, String question, String errorMessage) {
+		boolean check = false;
+		float number = 0f;
+		do {
+			System.out.println(question);
+			String strFloat = scanner.nextLine().replace(',', '.');
+			try {
+				number = Float.valueOf(strFloat);
+				if (number >= lowerLimit) {
+					check = true;
+				} else {
+					System.out.println(errorMessage);
+				}
+			} catch (NumberFormatException e) {
+				System.out.println(errorMessage);
+			}
+		} while (!check);
+
+		return number;
+
+	}
+
+	/**
 	 * Verify that a given date, defined by three int passed as parameters (year,
 	 * month,day) exists and is valid.<br>
 	 * A valid date is in the future (current date + 1)<br>
@@ -149,40 +186,4 @@ public class ValidationUtils {
 		return check;
 	}
 
-	/**
-	 * Checks if user input is float equal or greater than lowerLimit.<br>
-	 * Prints question and waits for user input<br>
-	 * If user input is valid (is a float equal or greater than lowerLimit), returns
-	 * the given number. else, prints errorMessage.<br>
-	 * Keeps asking until a valid input is provided.
-	 * 
-	 * @param scanner      Scanner. an open scanner instance, to get user input
-	 * @param lowerLimit   int. a number to be compared with user input.
-	 * @param question     String. a question to ask. the answer must be a float.
-	 *                     (e.g. "Insert object price")
-	 * @param errorMessage String. an error message to print if user input is not an
-	 *                     int (e.g. "Invalid input. Retry")
-	 * @return int. the given number
-	 */
-	public static float isFloatGreater(Scanner scanner, int lowerLimit, String question, String errorMessage) {
-		boolean check = false;
-		float number = 0f;
-		do {
-			System.out.println(question);
-			String strFloat = scanner.nextLine().replace(',', '.');
-			try {
-				number = Float.valueOf(strFloat);
-				if (number >= lowerLimit) {
-					check = true;
-				} else {
-					System.out.println(errorMessage);
-				}
-			} catch (Exception e) {
-				System.out.println(errorMessage);
-			}
-		} while (!check);
-
-		return number;
-
-	}
 }
