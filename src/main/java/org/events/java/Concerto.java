@@ -103,7 +103,8 @@ public class Concerto extends Evento {
 	 * integers (hh; mm)<br>
 	 * Before changing, check if the new time is valid (hh must be 0-23 and minutes
 	 * 0-59.<br>
-	 * Eventually, an error messages is printed to console.
+	 * if any of the parameters is out of range, an error messages is printed to
+	 * console.
 	 * 
 	 * @param hh int. must be in range 0-23
 	 * @param mm int. must be in range 0-59
