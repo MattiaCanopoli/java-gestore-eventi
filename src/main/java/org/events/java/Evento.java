@@ -206,8 +206,10 @@ public class Evento {
 	 * Eventually, prints error messages to console.
 	 * 
 	 * @param seats int. seats to book
+	 * @return int. actually booked seats (not total of the booked seats)
 	 */
-	public void prenota(int seats) {
+	public int prenota(int seats) {
+		int bookings = 0;
 		if (LocalDate.now().isBefore(this.eventDate)) {
 			int availableSeats = this.totalSeats - this.bookedSeats;
 			if (this.bookedSeats + seats > this.totalSeats) {
@@ -218,10 +220,13 @@ public class Evento {
 				System.out.println("Impossibile prenotare " + seats + "posti.");
 			} else {
 				this.bookedSeats += seats;
+				bookings = seats;
 			}
 		} else {
 			System.out.println("Siamo spiacenti, ma l'evento si è già concluso");
 		}
+
+		return bookings;
 	}
 
 	/**
@@ -293,21 +298,25 @@ public class Evento {
 	 * Eventually, prints error messages to console.
 	 * 
 	 * @param seats int. seats to cancel
+	 * @return int. actually cancelled seats
 	 */
-	public void disdici(int seats) {
+	public int disdici(int seats) {
+		int cancellation = 0;
 		if (LocalDate.now().isBefore(this.eventDate)) {
-			if (this.bookedSeats < seats) {
-				System.out.println("Siamo spiacenti, ma non è possibile disdire " + seats + " posti. Ci sono solamente "
-						+ this.bookedSeats + " posti prenotati");
-			} else if (seats <= 0) {
+//			if (this.bookedSeats < seats) {
+//				System.out.println("Siamo spiacenti, ma non è possibile disdire " + seats + " posti. Ci sono solamente "
+//						+ this.bookedSeats + " posti prenotati");
+//			} else 
+			if (seats <= 0) {
 				System.out.println("Impossibile disdire " + seats + "posti.");
 			} else {
 				this.bookedSeats -= seats;
+				cancellation = seats;
 			}
 		} else {
 			System.out.println("Siamo spiacenti, ma l'evento si è già concluso");
 		}
-
+		return cancellation;
 	}
 
 	/**
