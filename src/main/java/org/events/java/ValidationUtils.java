@@ -12,40 +12,6 @@ import java.util.Scanner;
 public class ValidationUtils {
 
 	/**
-	 * Checks if user input is int.<br>
-	 * Prints question and waits for user input<br>
-	 * If user input is valid, returns the given number. else, prints
-	 * errorMessage.<br>
-	 * Keeps asking until a valid input is provided.
-	 * 
-	 * @param scanner      Scanner. an open scanner instance, to get user input
-	 * @param question     String. a question to ask. the answer must be an int.
-	 *                     (e.g. "What's your age?")
-	 * @param errorMessage String. an error message to print if user input is not an
-	 *                     int (e.g. "Invalid input. Retry")
-	 * @return int. the given number
-	 */
-	public static int isInt(Scanner scanner, String question, String errorMessage) {
-		boolean check = false;
-		int number = 0;
-		do {
-			System.out.println(question);
-			if (scanner.hasNextInt()) {
-				number = scanner.nextInt();
-				scanner.nextLine();
-				check = true;
-			} else {
-				scanner.nextLine();
-				System.out.println(errorMessage);
-			}
-
-		} while (!check);
-
-		return number;
-
-	}
-
-	/**
 	 * Checks if user input is int equal or greater than lowerLimit.<br>
 	 * Prints question and waits for user input<br>
 	 * If user input is valid (is an int equal or greater than lowerLimit), returns
@@ -86,50 +52,6 @@ public class ValidationUtils {
 	}
 
 	/**
-	 * Checks if user input is int within the given range (lowerLimit -
-	 * upperLimit).<br>
-	 * Prints question and waits for user input<br>
-	 * If user input is valid (is and int within range), returns the given number.
-	 * else, prints errorMessage.<br>
-	 * Keeps asking until a valid input is provided.
-	 * 
-	 * @param scanner      Scanner. an open scanner instance, to get user input
-	 * @param lowerLimit   int. user input must be equal or greater than lowerLimit
-	 * @param upperLimit   int. user input must be equal or lower than upperLimit
-	 * @param question     String. a question to ask. the answer must be an int.
-	 *                     (e.g. "What's your age?")
-	 * @param errorMessage String. an error message to print if user input is not an
-	 *                     int (e.g. "Invalid input. Retry")
-	 * @return int. the given number
-	 * @return
-	 */
-	public static int isIntWithin(Scanner scanner, int lowerLimit, int upperLimit, String question,
-			String errorMessage) {
-		boolean check = false;
-		int number = 0;
-
-		do {
-			System.out.println(question);
-
-			if (scanner.hasNextInt()) {
-				number = scanner.nextInt();
-				scanner.nextLine();
-				if (number >= lowerLimit && number <= upperLimit) {
-					check = true;
-				} else {
-					System.out.println(errorMessage);
-				}
-			} else {
-				scanner.nextLine();
-				System.out.println(errorMessage);
-			}
-
-		} while (!check);
-
-		return number;
-	}
-
-	/**
 	 * Verify that a given date, defined by three int passed as parameters (year,
 	 * month,day) exists and is valid.<br>
 	 * A valid date is in the future (current date + 1)<br>
@@ -155,6 +77,7 @@ public class ValidationUtils {
 		}
 	}
 
+	// TODO: java docs
 	public static boolean checkTime(String userInputTime) {
 		try {
 			@SuppressWarnings("unused")
@@ -203,61 +126,16 @@ public class ValidationUtils {
 		return result;
 	}
 
-	public static int getChoice(Scanner scanner, String question, String errorMessage, String[] choices) {
+	// TODO java docs
+	public static boolean checkChoice(String choice, String[] choices) {
 		boolean check = false;
-		int index = -1;
-		do {
-
-			System.out.println(question);
-			for (String choice : choices) {
-				System.out.println("- " + choice);
-			}
-
-			String choice = scanner.nextLine();
-
-			for (int i = 0; i < choices.length; i++) {
-				if (choice.toLowerCase().equals(choices[i].toLowerCase())) {
-					check = true;
-					index = i;
-				}
-			}
-			if (index == -1) {
-				System.out.println(errorMessage);
-			}
-		} while (!check);
-		return index;
-	}
-
-	/**
-	 * Checks if user input is float.<br>
-	 * Prints question and waits for user input<br>
-	 * If user input is valid, returns the given number. else, prints
-	 * errorMessage.<br>
-	 * Keeps asking until a valid input is provided.
-	 * 
-	 * @param scanner      Scanner. an open scanner instance, to get user input
-	 * @param question     String. a question to ask. the answer must be a float.
-	 *                     (e.g. "Insert object price")
-	 * @param errorMessage String. an error message to print if user input is not an
-	 *                     float. (e.g. "Invalid input. Retry")
-	 * @return int. the given number
-	 */
-	public static float isFloat(Scanner scanner, String question, String errorMessage) {
-		boolean check = false;
-		float number = 0f;
-		do {
-			System.out.println(question);
-			String strFloat = scanner.nextLine().replace(',', '.');
-			try {
-				number = Float.valueOf(strFloat);
+		for (int i = 0; i < choices.length; i++) {
+			if (choice.toLowerCase().equals(choices[i].toLowerCase())) {
 				check = true;
-			} catch (Exception e) {
-				System.out.println(errorMessage);
+				break;
 			}
-		} while (!check);
-
-		return number;
-
+		}
+		return check;
 	}
 
 	/**
