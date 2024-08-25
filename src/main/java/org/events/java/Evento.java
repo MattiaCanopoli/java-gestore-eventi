@@ -43,6 +43,7 @@ public class Evento {
 	 *                   date). An error message is printed to console.
 	 */
 	public Evento(String eventTitle, int totalSeats, LocalDate eventDate) {
+
 		this.eventTitle = eventTitle;
 
 		if (totalSeats > 0) {

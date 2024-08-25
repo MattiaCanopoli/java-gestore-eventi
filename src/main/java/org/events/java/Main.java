@@ -204,7 +204,7 @@ public class Main {
 					+ (event.getTotalSeats() - event.getBookedSeats()) + " posti disponibili");
 		}
 //SECTION: PRENOTA END
-//SECTION: DISDICI START
+//SECTION: DISDICI START//
 
 		// NOTE: this part of code will be executed only if user has booked any seat
 		if (totalBookings > 0) {
